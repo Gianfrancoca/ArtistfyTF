@@ -8,6 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "artists")
@@ -19,24 +23,42 @@ public class Artist implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idArtist;
 	
+	@NotEmpty(message="El nombre es obligatorio")
+	@Pattern(regexp = "[a-zA-Z]+", message="El nombre solo puede tener letras.")
 	@Column(name = "firstName",nullable = false, length=50)
 	private String firstName;
 	
+	@NotEmpty(message="El apellido es obligatorio")
+	@Pattern(regexp = "[a-zA-Z]+", message="El apellido solo puede tener letras.")
 	@Column(name = "lastName",nullable = false, length=50)
 	private String lastName;
 	
-	private Long dni;
+
+	@NotNull(message="El dni es obligatorio")
+	@Column(name = "dni", nullable = false,unique = true )
+	private int dni;
 	
+	@Email(message="No cuenta con el formato de email.")
+	@NotEmpty(message="El email es obligatorio")
 	@Column(name = "email",nullable = false, length=50)
 	private String email;
 	
-	private Long phone;
 	
+	@NotNull(message="El telefono es obligatorio")
+	private int phone;
+	
+	@NotEmpty(message="La habilidad es obligatorio")
+	@Pattern(regexp = "[a-zA-Z]+", message="La habilidad solo puede tener letras.")
+	@Column(name = "skill",nullable = false, length=50)
 	private String skill;
 	
+	@NotEmpty(message="El genero es obligatorio")
+	@Pattern(regexp = "[a-zA-Z]+", message="El genero solo puede tener letras.")
 	@Column(name = "genre",nullable = false, length=50)
 	private String genre;
 	
+	@NotEmpty(message="La url es obligatorio")
+	@Pattern(regexp = "[a-zA-Z].+", message="La url solo puede tener letras.")
 	@Column(name = "websiteUrl",nullable = false, length=50)
 	private String websiteUrl;
 
@@ -45,7 +67,7 @@ public class Artist implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-	public Artist(int idArtist, String firstName, String lastName, Long dni, String email, Long phone, String skill,
+	public Artist(int idArtist, String firstName, String lastName, int dni, String email, int phone, String skill,
 			String genre, String websiteUrl) {
 		super();
 		this.idArtist = idArtist;
@@ -83,11 +105,11 @@ public class Artist implements Serializable{
 		this.lastName = lastName;
 	}
 
-	public Long getDni() {
+	public int getDni() {
 		return dni;
 	}
 
-	public void setDni(Long dni) {
+	public void setDni(int dni) {
 		this.dni = dni;
 	}
 
@@ -99,11 +121,11 @@ public class Artist implements Serializable{
 		this.email = email;
 	}
 
-	public Long getPhone() {
+	public int getPhone() {
 		return phone;
 	}
 
-	public void setPhone(Long phone) {
+	public void setPhone(int phone) {
 		this.phone = phone;
 	}
 
