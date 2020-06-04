@@ -63,7 +63,7 @@
 					<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item" th:href="@{/artists/list}">Artistas</a>
 					</div>
-					<div class="bg-white py-2 collapse-inner rounded">
+						<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item" th:href="@{/contracts/list}">Contratos</a>
 					</div>
 				</div></li>
@@ -142,9 +142,9 @@
 				<div class="container-fluid">
 
 					<!-- Page Heading -->
-					<h1 class="h3 mb-4 text-gray-800">Artistas</h1>
+					<h1 class="h3 mb-4 text-gray-800">Contratos</h1>
 
-					<a th:href="@{/artists/new/}" class="btn btn-secondary btn-xs">Nuevo</a>
+					<a th:href="@{/contracts/new/}" class="btn btn-secondary btn-xs">Nuevo</a>
 
 					<hr class="sidebar-divider">
 
@@ -152,36 +152,28 @@
 						<thead class="thead-dark">
 							<tr>
 								<th scope="col">Id</th>
-								<th scope="col">Nombre</th>
-								<th scope="col">Apellido</th>
-								<th scope="col">Dni</th>
-								<th scope="col">Email</th>
-								<th scope="col">Telefono</th>
-								<th scope="col">Habilidad</th>
-								<th scope="col">Genero</th>
-								<th scope="col">Website</th>
+								<th scope="col">Artista</th>
+								<th scope="col">Descripcion</th>
+								<th scope="col">Salario</th>
+								<th scope="col">Direccion</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="art: ${listArtists}">
-								<td th:text="${art.idArtist}"></td>
-								<td th:text="${art.firstName}"></td>
-								<td th:text="${art.lastName}"></td>
-								<td th:text="${art.dni}"></td>
-								<td th:text="${art.email}"></td>
-								<td th:text="${art.phone}"></td>
-								<td th:text="${art.skill}"></td>
-								<td th:text="${art.genre}"></td>
-								<td th:text="${art.websiteUrl}"></td>
+							<tr th:each="cont: ${listContracts}">
+								<td th:text="${cont.idContract}"></td>
+								<td th:text="${cont.artist.firstName}"></td>
+								<td th:text="${cont.descriptionContract}"></td>
+								<td th:text="${cont.salary}"></td>
+								<td th:text="${cont.address}"></td>
 							</tr>
 						</tbody>
 					</table>
-
-					<p th:text="${mensaje}" class="form-text text-success"></p>
+				<p th:text="${mensaje}" class="form-text text-success"></p>
 
 				</div>
 				<!-- /.container-fluid -->
 
+			
 			</div>
 			<!-- End of Main Content -->
 

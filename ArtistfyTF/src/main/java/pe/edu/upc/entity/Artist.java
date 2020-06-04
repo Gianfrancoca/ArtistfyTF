@@ -35,7 +35,7 @@ public class Artist implements Serializable{
 	
 
 	@NotNull(message="El dni es obligatorio")
-	@Column(name = "dni", nullable = false,unique = true )
+	@Column(name = "dni", nullable = false)
 	private int dni;
 	
 	@Email(message="No cuenta con el formato de email.")
@@ -45,6 +45,7 @@ public class Artist implements Serializable{
 	
 	
 	@NotNull(message="El telefono es obligatorio")
+	@Column(name = "phone", nullable = false)
 	private int phone;
 	
 	@NotEmpty(message="La habilidad es obligatorio")

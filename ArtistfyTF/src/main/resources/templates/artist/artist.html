@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>2020</title>
+<title>Artistfy</title>
 
 <!-- Custom fonts for this template-->
 <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
@@ -37,10 +37,12 @@
 			<a
 				class="sidebar-brand d-flex align-items-center justify-content-center"
 				th:href="@{/artists/list}">
-				<div class="sidebar-brand-icon rotate-n-15">
-					<i class="fas fa-leaf"></i>
+				<div class="sidebar-brand-icon">
+				<img th:src="@{/img/artistfy.png}" height="50"  alt="logo"
+									align="middle"></img>
+				<!--  <i class="fas fa-leaf"></i> -->	
 				</div>
-				<div class="sidebar-brand-text mx-2">Programación en Web</div>
+			<!-- <div class="sidebar-brand-text mx-2">Programación en Web</div>-->
 			</a>
 
 			<!-- Divider -->
@@ -56,6 +58,9 @@
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item" th:href="@{/artists/list}">Artistas</a>
+					</div>
+						<div class="bg-white py-2 collapse-inner rounded">
+						<a class="collapse-item" th:href="@{/contracts/list}">Contratos</a>
 					</div>
 				</div></li>
 
@@ -164,7 +169,7 @@
 						<div class="form-group row">
 							<label for="dni" class="col-sm-2 col-form-label">Dni</label>
 							<div class="col-sm-6">
-								<input type="text" th:field="*{dni}" class="form-control" maxlength="8"
+								<input type="number" th:field="*{dni}" class="form-control" maxlength="8"
 									th:errorclass="'form-control alert-danger'" /> <small
 									class="form-text text-danger"
 									th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"></small>
@@ -182,7 +187,7 @@
 						<div class="form-group row">
 							<label for="phone" class="col-sm-2 col-form-label">Telefono</label>
 							<div class="col-sm-6">
-								<input type="text" th:field="*{phone}" class="form-control" maxlength="9"
+								<input type="number" th:field="*{phone}" class="form-control" maxlength="9"
 									th:errorclass="'form-control alert-danger'" /> <small
 									class="form-text text-danger"
 									th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></small>
