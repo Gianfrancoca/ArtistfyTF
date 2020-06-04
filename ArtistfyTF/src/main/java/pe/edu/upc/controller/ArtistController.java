@@ -30,9 +30,15 @@ public class ArtistController {
 		if (result.hasErrors()) {
 			return "artist/artist";
 		} else {
-			aS.insert(artist);
-			model.addAttribute("listArtists", aS.listArtist());
-			return "artist/listArtists";
+			
+			int rpta = aS.insert(artist);
+			if(rpta>0) {
+			model.addAttribute("mensaje", "DNI ya existe.");
+			return "artist/artist";
+			}else {
+				model.addAttribute("listArtists", aS.listArtist());
+				return "artist/listArtists";
+			}
 		}
 	}
 	

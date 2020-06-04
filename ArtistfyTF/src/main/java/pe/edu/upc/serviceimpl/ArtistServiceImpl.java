@@ -19,9 +19,13 @@ public class ArtistServiceImpl implements Serializable, IArtistService{
 	private IArtistRepository aR;
 	
 	@Override
-	public void insert(Artist artist) {
+	public int insert(Artist artist) {
 		// TODO Auto-generated method stub
-		aR.save(artist);
+		int rpta=aR.searchDni(artist.getDni());
+		if(rpta==0) {
+			aR.save(artist);
+		}
+		return rpta;
 	}
 
 	@Override

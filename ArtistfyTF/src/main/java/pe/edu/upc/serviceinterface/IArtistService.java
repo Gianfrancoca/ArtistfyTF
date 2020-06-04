@@ -6,7 +6,7 @@ import pe.edu.upc.entity.Artist;
 
 public interface IArtistService {
 
-	public void insert(Artist artist);
+	public int insert(Artist artist);
 	List<Artist> listArtist();
 	
 }
