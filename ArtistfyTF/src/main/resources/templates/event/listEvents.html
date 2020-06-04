@@ -63,7 +63,7 @@
 					<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item" th:href="@{/artists/list}">Artistas</a>
 					</div>
-					<div class="bg-white py-2 collapse-inner rounded">
+						<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item" th:href="@{/contracts/list}">Contratos</a>
 					</div>
 					<div class="bg-white py-2 collapse-inner rounded">
@@ -148,9 +148,9 @@
 				<div class="container-fluid">
 
 					<!-- Page Heading -->
-					<h1 class="h3 mb-4 text-gray-800">Organizadores</h1>
+					<h1 class="h3 mb-4 text-gray-800">Eventos</h1>
 
-					<a th:href="@{/organizers/new/}" class="btn btn-secondary btn-xs">Nuevo</a>
+					<a th:href="@{/events/new/}" class="btn btn-secondary btn-xs">Nuevo</a>
 
 					<hr class="sidebar-divider">
 
@@ -158,30 +158,32 @@
 						<thead class="thead-dark">
 							<tr>
 								<th scope="col">Id</th>
+								<th scope="col">Organizador</th>
 								<th scope="col">Nombre</th>
-								<th scope="col">Apellido</th>
-								<th scope="col">Dni</th>
-								<th scope="col">Email</th>
-								<th scope="col">Telefono</th>
+								<th scope="col">Descripcion</th>
+								<th scope="col">Requisitos</th>
+								<th scope="col">Salario</th>
+								<th scope="col">FehaEvento</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="art: ${listOrganizers}">
-								<td th:text="${art.idOrganizer}"></td>
-								<td th:text="${art.firstName}"></td>
-								<td th:text="${art.lastName}"></td>
-								<td th:text="${art.dni}"></td>
-								<td th:text="${art.email}"></td>
-								<td th:text="${art.phone}"></td>
+							<tr th:each="e: ${listEvents}">
+								<td th:text="${e.idEvent}"></td>
+								<td th:text="${e.organizer.firstName}"></td>
+								<td th:text="${e.name}"></td>
+								<td th:text="${e.description}"></td>
+								<td th:text="${e.requeriments}"></td>
+								<td th:text="${e.offeredSalary}"></td>
+								<td th:text="${#dates.format(e.scheduleAt,'dd/MM/yyyy')}"></td>
 							</tr>
 						</tbody>
 					</table>
-
-					<p th:text="${mensaje}" class="form-text text-success"></p>
+				<p th:text="${mensaje}" class="form-text text-success"></p>
 
 				</div>
 				<!-- /.container-fluid -->
 
+			
 			</div>
 			<!-- End of Main Content -->
 

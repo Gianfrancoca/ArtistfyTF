@@ -33,7 +33,6 @@
 		<ul
 			class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
 			id="accordionSidebar">
-
 			<!-- Sidebar - Brand -->
 			<a
 				class="sidebar-brand d-flex align-items-center justify-content-center"
@@ -46,16 +45,13 @@
 			<!-- <div class="sidebar-brand-text mx-2">Programación en Web</div>-->
 			</a>
 
-
 			<!-- Divider -->
 			<hr class="sidebar-divider my-0">
 
 
-
-
 			<!-- Nav Item - Pages Collapse Menu -->
 			<li class="nav-item"><a class="nav-link collapsed" href="#"
-				data-target="#collapseTwo" aria-expanded=true
+				data-target="#collapseTwo" aria-expanded="false"
 				aria-controls="collapseTwo"> <i class="fas fa-fw fa-cog"></i> <span>Men&uacute;</span>
 			</a>
 				<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
@@ -73,11 +69,6 @@
 						<a class="collapse-item" th:href="@{/events/list}">Eventos</a>						
 					</div>
 				</div></li>
-
-
-
-			<!-- Divider -->
-			<hr class="sidebar-divider">
 
 			<!-- Sidebar Toggler (Sidebar) -->
 
@@ -124,6 +115,7 @@
 								class="mr-2 d-none d-lg-inline text-gray-600 small"><img
 									th:src="@{/img/logout.png}" width="30" height="30" alt="logo"
 									align="middle"></img></span>
+
 						</a> <!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -132,8 +124,8 @@
 									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Perfil
 								</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="artists/index"
-									data-toggle="modal" data-target="#logoutModal"> <i
+								<a class="dropdown-item" href="#" data-toggle="modal"
+									data-target="#logoutModal"> <i
 									class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 									Cerrar sesión
 								</a>
@@ -148,36 +140,93 @@
 				<div class="container-fluid">
 
 					<!-- Page Heading -->
-					<h1 class="h3 mb-4 text-gray-800">Organizadores</h1>
-
-					<a th:href="@{/organizers/new/}" class="btn btn-secondary btn-xs">Nuevo</a>
+					<h1 class="h3 mb-4 text-gray-800">Eventos</h1>
 
 					<hr class="sidebar-divider">
+					<div th:object="${event}" th:remove="tag">
+						<ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger"
+							role="alert">
+							<li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+						</ul>
+					</div>
 
-					<table class="table table-striped">
-						<thead class="thead-dark">
-							<tr>
-								<th scope="col">Id</th>
-								<th scope="col">Nombre</th>
-								<th scope="col">Apellido</th>
-								<th scope="col">Dni</th>
-								<th scope="col">Email</th>
-								<th scope="col">Telefono</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="art: ${listOrganizers}">
-								<td th:text="${art.idOrganizer}"></td>
-								<td th:text="${art.firstName}"></td>
-								<td th:text="${art.lastName}"></td>
-								<td th:text="${art.dni}"></td>
-								<td th:text="${art.email}"></td>
-								<td th:text="${art.phone}"></td>
-							</tr>
-						</tbody>
-					</table>
+					<form th:action="@{/events/save}" th:object="${event}"
+						method="post">
+						
+						<div class="form-group row">
+							<label for="organizer">Organizador:</label>
+							<div class="col-sm-6">
+								<select class="form-control" th:field="*{organizer.idOrganizer}">
+									<option th:each="o: ${listOrganizers}"
+										th:value="${o.idOrganizer}" th:text="${o.firstName}"
+										th:selected="(${o.idOrganizer} == *{organizer.idOrganizer})"></option>
+								</select>
+							</div>
+						</div>
+						
+						<div class="form-group row">
+							<label for="name" class="col-sm-2 col-form-label">Nombre </label>
+							<div class="col-sm-6">
+								<input type="text" th:field="*{name}" class="form-control"
+									th:errorclass="'form-control alert-danger'" /> <small
+									class="form-text text-danger"
+									th:if="${#fields.hasErrors('name')}"
+									th:errors="*{name}"></small>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="description" class="col-sm-2 col-form-label">Descripcion</label>
+							<div class="col-sm-6">
+								<textarea type="text" th:field="*{description}" class="form-control"
+									th:errorclass="'form-control alert-danger'" /> <small
+									class="form-text text-danger"
+									th:if="${#fields.hasErrors('description')}"
+									th:errors="*{description}"></small>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="requeriments" class="col-sm-2 col-form-label">Requisitos</label>
+							<div class="col-sm-6">
+								<input type="text" th:field="*{requeriments}" class="form-control" 
+									th:errorclass="'form-control alert-danger'" /> <small
+									class="form-text text-danger"
+									th:if="${#fields.hasErrors('requeriments')}" th:errors="*{requeriments}"></small>
+							</div>
+						</div>
+						
+						<div class="form-group row">
+							<label for="offeredSalary" class="col-sm-2 col-form-label">Salario</label>
+							<div class="col-sm-6">
+								<input type="number" th:field="*{offeredSalary}" class="form-control" 
+									th:errorclass="'form-control alert-danger'" /> <small
+									class="form-text text-danger"
+									th:if="${#fields.hasErrors('offeredSalary')}" th:errors="*{offeredSalary}"></small>
+							</div>
+						</div>
+						
+							<div class="form-group row">
+							<label for="scheduleAt" class="col-sm-2 col-form-label">Fecha del evento</label>
+							<div class="col-sm-6">
+								<input type="date" th:field="*{scheduleAt}" class="form-control" 
+									th:errorclass="'form-control alert-danger'" /> <small
+									class="form-text text-danger"
+									th:if="${#fields.hasErrors('scheduleAt')}" th:errors="*{scheduleAt}"></small>
+							</div>
+						</div>
+						
 
+						<div class="form-group row">
+							<div class="col-sm-6">
+								<input type="submit" value="Guardar" class="btn btn-secondary"></input>
+								<a href="/events/list" class="btn btn-danger">Cancelar</a>
+							</div>
+						</div>
+
+					</form>
+					
 					<p th:text="${mensaje}" class="form-text text-success"></p>
+
+
 
 				</div>
 				<!-- /.container-fluid -->
@@ -220,12 +269,12 @@
 					</button>
 				</div>
 				<div class="modal-body">Seleccione "Cerrar sesión" a
-					continuación si está listo para finalizar su sesión actual.</div>
+					continuación si está listo para finalizar su sesión actual</div>
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button"
 						data-dismiss="modal">Cancelar</button>
-					<a class="btn btn-primary" th:href="@{/artists/index}">Cerrar
-						sesión</a>
+					<a class="btn btn-primary" th:href="@{/contracts/index}">Cerrar
+						Sesión</a>
 				</div>
 			</div>
 		</div>
