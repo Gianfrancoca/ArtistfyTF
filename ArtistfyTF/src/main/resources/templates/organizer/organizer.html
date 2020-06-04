@@ -59,7 +59,7 @@
 					<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item" th:href="@{/artists/list}">Artistas</a>
 					</div>
-					<div class="bg-white py-2 collapse-inner rounded">
+						<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item" th:href="@{/contracts/list}">Contratos</a>
 					</div>
 					<div class="bg-white py-2 collapse-inner rounded">
@@ -137,72 +137,76 @@
 				<div class="container-fluid">
 
 					<!-- Page Heading -->
-					<h1 class="h3 mb-4 text-gray-800">Contratos</h1>
+					<h1 class="h3 mb-4 text-gray-800">Organizadores</h1>
 
 					<hr class="sidebar-divider">
-					<div th:object="${contract}" th:remove="tag">
+					<div th:object="${organizer}" th:remove="tag">
 						<ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger"
 							role="alert">
 							<li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
 						</ul>
 					</div>
 
-					<form th:action="@{/contracts/save}" th:object="${contract}"
+					<form th:action="@{/organizers/save}" th:object="${organizer}"
 						method="post">
-						
 						<div class="form-group row">
-							<label for="artist">Artista:</label>
+							<label for="name" class="col-sm-2 col-form-label">Nombre</label>
 							<div class="col-sm-6">
-								<select class="form-control" th:field="*{artist.idArtist}">
-									<option th:each="a: ${listArtists}"
-										th:value="${a.idArtist}" th:text="${a.firstName}"
-										th:selected="(${a.idArtist} == *{artist.idArtist})"></option>
-								</select>
-							</div>
-						</div>
-						
-						<div class="form-group row">
-							<label for="description" class="col-sm-2 col-form-label">Descripcion</label>
-							<div class="col-sm-6">
-								<textarea type="text" th:field="*{descriptionContract}" class="form-control"
+								<input type="text" th:field="*{firstName}" class="form-control"
 									th:errorclass="'form-control alert-danger'" /> <small
 									class="form-text text-danger"
-									th:if="${#fields.hasErrors('descriptionContract')}"
-									th:errors="*{descriptionContract}"></small>
+									th:if="${#fields.hasErrors('firstName')}"
+									th:errors="*{firstName}"></small>
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="price" class="col-sm-2 col-form-label">Salario</label>
+							<label for="name" class="col-sm-2 col-form-label">Apellido</label>
 							<div class="col-sm-6">
-								<input type="number" th:field="*{salary}" class="form-control"
+								<input type="text" th:field="*{lastName}" class="form-control"
 									th:errorclass="'form-control alert-danger'" /> <small
 									class="form-text text-danger"
-									th:if="${#fields.hasErrors('salary')}"
-									th:errors="*{salary}"></small>
+									th:if="${#fields.hasErrors('lastName')}"
+									th:errors="*{lastName}"></small>
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="" class="col-sm-2 col-form-label">Direccion</label>
+							<label for="dni" class="col-sm-2 col-form-label">DNI</label>
 							<div class="col-sm-6">
-								<input type="text" th:field="*{address}" class="form-control" 
+								<input type="number" th:field="*{dni}" class="form-control" maxlength="8"
 									th:errorclass="'form-control alert-danger'" /> <small
 									class="form-text text-danger"
-									th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></small>
+									th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"></small>
 							</div>
 						</div>
-						
+						<div class="form-group row">
+							<label for="name" class="col-sm-2 col-form-label">Email</label>
+							<div class="col-sm-6">
+								<input type="text" th:field="*{email}" class="form-control"
+									th:errorclass="'form-control alert-danger'" /> <small
+									class="form-text text-danger"
+									th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="phone" class="col-sm-2 col-form-label">Telefono</label>
+							<div class="col-sm-6">
+								<input type="number" th:field="*{phone}" class="form-control" maxlength="9"
+									th:errorclass="'form-control alert-danger'" /> <small
+									class="form-text text-danger"
+									th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></small>
+							</div>
+						</div>
+
 
 						<div class="form-group row">
 							<div class="col-sm-6">
 								<input type="submit" value="Guardar" class="btn btn-secondary"></input>
-								<a href="/contracts/list" class="btn btn-danger">Cancelar</a>
+								<a href="/organizers/list" class="btn btn-danger">Cancelar</a>
 							</div>
 						</div>
 
 					</form>
-					
-					<p th:text="${mensaje}" class="form-text text-success"></p>
-
+					<p th:text="${mensaje}" style="color:red"> </p>
 
 
 				</div>
@@ -250,7 +254,7 @@
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button"
 						data-dismiss="modal">Cancelar</button>
-					<a class="btn btn-primary" th:href="@{/contracts/index}">Cerrar
+					<a class="btn btn-primary" th:href="@{/artists/index}">Cerrar
 						Sesión</a>
 				</div>
 			</div>
