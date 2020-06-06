@@ -39,11 +39,10 @@
 				class="sidebar-brand d-flex align-items-center justify-content-center"
 				th:href="@{/artists/list}">
 				<div class="sidebar-brand-icon">
-				<img th:src="@{/img/artistfy.png}" height="50"  alt="logo"
-									align="middle"></img>
-				<!--  <i class="fas fa-leaf"></i> -->	
-				</div>
-			<!-- <div class="sidebar-brand-text mx-2">Programación en Web</div>-->
+					<img th:src="@{/img/artistfy.png}" height="50" alt="logo"
+						align="middle"></img>
+					<!--  <i class="fas fa-leaf"></i> -->
+				</div> <!-- <div class="sidebar-brand-text mx-2">Programación en Web</div>-->
 			</a>
 
 
@@ -63,14 +62,14 @@
 					<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item" th:href="@{/artists/list}">Artistas</a>
 					</div>
-						<div class="bg-white py-2 collapse-inner rounded">
+					<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item" th:href="@{/contracts/list}">Contratos</a>
 					</div>
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" th:href="@{/organizers/list}">Organizadores</a>						
+						<a class="collapse-item" th:href="@{/organizers/list}">Organizadores</a>
 					</div>
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" th:href="@{/events/list}">Eventos</a>						
+						<a class="collapse-item" th:href="@{/events/list}">Eventos</a>
 					</div>
 				</div></li>
 
@@ -152,6 +151,8 @@
 
 					<a th:href="@{/events/new/}" class="btn btn-secondary btn-xs">Nuevo</a>
 
+				
+
 					<hr class="sidebar-divider">
 
 					<table class="table table-striped">
@@ -164,6 +165,7 @@
 								<th scope="col">Requisitos</th>
 								<th scope="col">Salario</th>
 								<th scope="col">FehaEvento</th>
+								<th scope="col">Operacion</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -175,15 +177,20 @@
 								<td th:text="${e.requeriments}"></td>
 								<td th:text="${e.offeredSalary}"></td>
 								<td th:text="${#dates.format(e.scheduleAt,'dd/MM/yyyy')}"></td>
+								<td><a th:href="@{'/events/delete/'+${e.idEvent}}"> <i
+										class="iconf fa fa-trash" style="color: red"></i>
+								</a> <a th:href="@{'/events/irupdate/'+${e.idEvent}}"> <i
+										class="iconf fa fa-pen" style="color: blue"></i>
+								</a></td>
 							</tr>
 						</tbody>
 					</table>
-				<p th:text="${mensaje}" class="form-text text-success"></p>
+					<p th:text="${mensaje}" class="form-text text-success"></p>
 
 				</div>
 				<!-- /.container-fluid -->
 
-			
+
 			</div>
 			<!-- End of Main Content -->
 

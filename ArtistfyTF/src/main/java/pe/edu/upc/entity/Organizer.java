@@ -9,9 +9,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Positive;
 
 @Entity
 @Table(name = "organizers")
@@ -33,7 +36,9 @@ public class Organizer implements Serializable{
 	@Column(name = "lastName",nullable = false, length=50)
 	private String lastName;
 	
-
+	@Positive(message = "El valor tiene que ser positivo")
+	@Min(value=10000000,message = "Solo se puede tener 8 digitos")
+	@Max(value=99999999, message = "Solo se puede tener 8 digitos")
 	@NotNull(message="El dni es obligatorio")
 	@Column(name = "dni", nullable = false)
 	private int dni;
@@ -43,7 +48,9 @@ public class Organizer implements Serializable{
 	@Column(name = "email",nullable = false, length=50)
 	private String email;
 	
-	
+	@Positive(message = "El valor tiene que ser positivo")
+	@Min(value=100000000,message = "Solo se puede tener 9 digitos")
+	@Max(value=999999999, message = "Solo se puede tener 9 digitos")
 	@NotNull(message="El telefono es obligatorio")
 	@Column(name = "phone", nullable = false)
 	private int phone;

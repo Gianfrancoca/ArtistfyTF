@@ -2,6 +2,7 @@ package pe.edu.upc.serviceimpl;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,18 @@ public class ContractServiceImpl implements Serializable, IContractService{
 	public List<Contract> listContract() {
 		// TODO Auto-generated method stub
 		return cR.findAll();
+	}
+
+	@Override
+	public void delete(int idContract) {
+		// TODO Auto-generated method stub
+		cR.deleteById(idContract);
+	}
+
+	@Override
+	public Optional<Contract> searchId(int idContract) {
+		// TODO Auto-generated method stub
+		return cR.findById(idContract);
 	}
 
 }

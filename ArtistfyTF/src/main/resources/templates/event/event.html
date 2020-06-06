@@ -152,6 +152,16 @@
 
 					<form th:action="@{/events/save}" th:object="${event}"
 						method="post">
+						<div class="form-group row">
+							<label for="name" class="col-sm-2 col-form-label">Codigo</label>
+							<div class="col-sm-6">
+								<input type="text" th:field="*{idEvent}" class="form-control"
+									th:errorclass="'form-control alert-danger'" /> <small
+									class="form-text text-danger"
+									th:if="${#fields.hasErrors('idEvent')}"
+									th:errors="*{idEvent}"></small>
+							</div>
+						</div>
 						
 						<div class="form-group row">
 							<label for="organizer">Organizador:</label>

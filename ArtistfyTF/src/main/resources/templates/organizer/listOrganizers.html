@@ -163,6 +163,7 @@
 								<th scope="col">Dni</th>
 								<th scope="col">Email</th>
 								<th scope="col">Telefono</th>
+								<th scope="col">Operacion</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -173,6 +174,11 @@
 								<td th:text="${art.dni}"></td>
 								<td th:text="${art.email}"></td>
 								<td th:text="${art.phone}"></td>
+								<td><a th:href="@{'/organizers/delete/'+${art.idOrganizer}}">
+										<i class="iconf fa fa-trash" style="color: red"></i>
+								</a> <a th:href="@{'/organizers/irupdate/'+${art.idOrganizer}}"> <i
+										class="iconf fa fa-pen" style="color: blue"></i>
+								</a></td>
 							</tr>
 						</tbody>
 					</table>

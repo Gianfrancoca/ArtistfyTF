@@ -2,6 +2,7 @@ package pe.edu.upc.serviceimpl;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,5 +30,18 @@ public class EventServiceImpl implements Serializable, IEventService{
 		// TODO Auto-generated method stub
 		return eR.findAll();
 	}
+
+	@Override
+	public void delete(int idEvent) {
+		// TODO Auto-generated method stub
+		eR.deleteById(idEvent);
+	}
+
+	@Override
+	public Optional<Event> searchId(int idEvent) {
+		// TODO Auto-generated method stub
+		return eR.findById(idEvent);
+	}
+
 
 }

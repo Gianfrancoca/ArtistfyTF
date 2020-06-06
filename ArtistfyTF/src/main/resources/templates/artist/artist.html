@@ -38,11 +38,10 @@
 				class="sidebar-brand d-flex align-items-center justify-content-center"
 				th:href="@{/artists/list}">
 				<div class="sidebar-brand-icon">
-				<img th:src="@{/img/artistfy.png}" height="50"  alt="logo"
-									align="middle"></img>
-				<!--  <i class="fas fa-leaf"></i> -->	
-				</div>
-			<!-- <div class="sidebar-brand-text mx-2">Programación en Web</div>-->
+					<img th:src="@{/img/artistfy.png}" height="50" alt="logo"
+						align="middle"></img>
+					<!--  <i class="fas fa-leaf"></i> -->
+				</div> <!-- <div class="sidebar-brand-text mx-2">Programación en Web</div>-->
 			</a>
 
 			<!-- Divider -->
@@ -59,14 +58,14 @@
 					<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item" th:href="@{/artists/list}">Artistas</a>
 					</div>
-						<div class="bg-white py-2 collapse-inner rounded">
+					<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item" th:href="@{/contracts/list}">Contratos</a>
 					</div>
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" th:href="@{/organizers/list}">Organizadores</a>						
+						<a class="collapse-item" th:href="@{/organizers/list}">Organizadores</a>
 					</div>
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" th:href="@{/events/list}">Eventos</a>						
+						<a class="collapse-item" th:href="@{/events/list}">Eventos</a>
 					</div>
 				</div></li>
 
@@ -153,6 +152,16 @@
 					<form th:action="@{/artists/save}" th:object="${artist}"
 						method="post">
 						<div class="form-group row">
+							<label for="name" class="col-sm-2 col-form-label">Codigo</label>
+							<div class="col-sm-6">
+								<input type="text" th:field="*{idArtist}" class="form-control"
+									th:errorclass="'form-control alert-danger'" /> <small
+									class="form-text text-danger"
+									th:if="${#fields.hasErrors('idArtist')}"
+									th:errors="*{idArtist}"></small>
+							</div>
+						</div>
+						<div class="form-group row">
 							<label for="name" class="col-sm-2 col-form-label">Nombre</label>
 							<div class="col-sm-6">
 								<input type="text" th:field="*{firstName}" class="form-control"
@@ -175,8 +184,8 @@
 						<div class="form-group row">
 							<label for="dni" class="col-sm-2 col-form-label">Dni</label>
 							<div class="col-sm-6">
-								<input type="number" th:field="*{dni}" class="form-control" maxlength="8"
-									th:errorclass="'form-control alert-danger'" /> <small
+								<input type="number" th:field="*{dni}" class="form-control"
+									maxlength="8" th:errorclass="'form-control alert-danger'" /> <small
 									class="form-text text-danger"
 									th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"></small>
 							</div>
@@ -193,8 +202,8 @@
 						<div class="form-group row">
 							<label for="phone" class="col-sm-2 col-form-label">Telefono</label>
 							<div class="col-sm-6">
-								<input type="number" th:field="*{phone}" class="form-control" maxlength="9"
-									th:errorclass="'form-control alert-danger'" /> <small
+								<input type="number" th:field="*{phone}" class="form-control"
+									maxlength="9" th:errorclass="'form-control alert-danger'" /> <small
 									class="form-text text-danger"
 									th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></small>
 							</div>
@@ -239,7 +248,7 @@
 						</div>
 
 					</form>
-					<p th:text="${mensaje}" style="color:red"> </p>
+					<p th:text="${mensaje}" style="color: red"></p>
 
 
 

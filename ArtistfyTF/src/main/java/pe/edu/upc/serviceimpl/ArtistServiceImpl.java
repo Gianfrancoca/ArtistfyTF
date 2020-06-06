@@ -2,6 +2,7 @@ package pe.edu.upc.serviceimpl;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,18 @@ public class ArtistServiceImpl implements Serializable, IArtistService{
 	public List<Artist> listArtist() {
 		// TODO Auto-generated method stub
 		return aR.findAll();
+	}
+
+	@Override
+	public void delete(int idArtist) {
+		// TODO Auto-generated method stub
+		aR.deleteById(idArtist);
+	}
+
+	@Override
+	public Optional<Artist> searchId(int idArtist) {
+		// TODO Auto-generated method stub
+		return aR.findById(idArtist);
 	}
 
 }

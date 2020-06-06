@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 @Entity
 @Table(name = "contracts")
@@ -32,6 +33,7 @@ public class Contract implements Serializable{
 	private String descriptionContract;
 	
 	@NotNull(message="El salario es obligatorio")
+	@Positive(message = "El valor tiene que ser positivo")
 	@Column(name = "salary", nullable = false, columnDefinition = "Decimal(8,2)")
 	private Double salary;
 	

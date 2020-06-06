@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -43,6 +44,7 @@ public class Event implements Serializable{
 	@Column(name = "requeriments", nullable = false, length = 45)
 	private String requeriments;
 	
+	@Positive(message = "El valor tiene que ser positivo")
 	@NotNull(message="El salario es obligatorio")
 	@Column(name = "offeredSalary", nullable = false, columnDefinition = "Decimal(8,2)")
 	private Double offeredSalary;
