@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Artistfy</title>
+<title>2020</title>
 
 <!-- Custom fonts for this template-->
 <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
@@ -36,13 +36,11 @@
 			<!-- Sidebar - Brand -->
 			<a
 				class="sidebar-brand d-flex align-items-center justify-content-center"
-				th:href="@{/artists/list}">
-				<div class="sidebar-brand-icon">
-				<img th:src="@{/img/artistfy.png}" height="50"  alt="logo"
-									align="middle"></img>
-				<!--  <i class="fas fa-leaf"></i> -->	
+				th:href="@{/categories/list}">
+				<div class="sidebar-brand-icon rotate-n-15">
+					<i class="fas fa-leaf"></i>
 				</div>
-			<!-- <div class="sidebar-brand-text mx-2">Programación en Web</div>-->
+				<div class="sidebar-brand-text mx-2">Programación en Web</div>
 			</a>
 
 			<!-- Divider -->
@@ -71,6 +69,12 @@
 					<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item" th:href="@{/genres/list}">Genero</a>						
 					</div>
+					<!--<div class="bg-white py-2 collapse-inner rounded">
+						<a class="collapse-item" th:href="@{/users/list}">Usuarios</a>
+					</div>
+					<div class="bg-white py-2 collapse-inner rounded">
+						<a class="collapse-item" th:href="@{/roles/list}">Roles</a>
+					</div>-->
 				</div></li>
 
 			<!-- Sidebar Toggler (Sidebar) -->
@@ -143,67 +147,38 @@
 				<div class="container-fluid">
 
 					<!-- Page Heading -->
-					<h1 class="h3 mb-4 text-gray-800">Contratos</h1>
+					<h1 class="h3 mb-4 text-gray-800">Genero</h1>
 
 					<hr class="sidebar-divider">
-					<div th:object="${contract}" th:remove="tag">
+					<div th:object="${genre}" th:remove="tag">
 						<ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger"
 							role="alert">
 							<li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
 						</ul>
 					</div>
 
-					<form th:action="@{/contracts/save}" th:object="${contract}"
-						method="post">
-						<div class="form-group row">
+					<form th:action="@{/genres/save}" th:object="${genre}"
+						method="post" enctype="multipart/form-data">
+							<div class="form-group row">
 							<label for="name" class="col-sm-2 col-form-label">Codigo</label>
 							<div class="col-sm-6">
-								<input type="text" th:field="*{idContract}" class="form-control"
+								<input type="text" th:field="*{idGenre}"
+									class="form-control"
 									th:errorclass="'form-control alert-danger'" /> <small
 									class="form-text text-danger"
-									th:if="${#fields.hasErrors('idContract')}"
-									th:errors="*{idContract}"></small>
-							</div>
-						</div>
-						
-						<div class="form-group row">
-							<label for="artist">Artista:</label>
-							<div class="col-sm-6">
-								<select class="form-control" th:field="*{artist.idArtist}">
-									<option th:each="a: ${listArtists}"
-										th:value="${a.idArtist}" th:text="${a.firstName}"
-										th:selected="(${a.idArtist} == *{artist.idArtist})"></option>
-								</select>
-							</div>
-						</div>
-						
-						<div class="form-group row">
-							<label for="description" class="col-sm-2 col-form-label">Descripcion</label>
-							<div class="col-sm-6">
-								<textarea type="text" th:field="*{descriptionContract}" class="form-control"
-									th:errorclass="'form-control alert-danger'" /> <small
-									class="form-text text-danger"
-									th:if="${#fields.hasErrors('descriptionContract')}"
-									th:errors="*{descriptionContract}"></small>
+									th:if="${#fields.hasErrors('idGenre')}"
+									th:errors="*{idGenre}"></small>
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="price" class="col-sm-2 col-form-label">Salario</label>
+							<label for="name" class="col-sm-2 col-form-label">Genero</label>
 							<div class="col-sm-6">
-								<input type="number" th:field="*{salary}" class="form-control"
+								<input type="text" th:field="*{nameGenre}"
+									class="form-control"
 									th:errorclass="'form-control alert-danger'" /> <small
 									class="form-text text-danger"
-									th:if="${#fields.hasErrors('salary')}"
-									th:errors="*{salary}"></small>
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="" class="col-sm-2 col-form-label">Direccion</label>
-							<div class="col-sm-6">
-								<input type="text" th:field="*{address}" class="form-control" 
-									th:errorclass="'form-control alert-danger'" /> <small
-									class="form-text text-danger"
-									th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></small>
+									th:if="${#fields.hasErrors('nameGenre')}"
+									th:errors="*{nameGenre}"></small>
 							</div>
 						</div>
 						
@@ -211,13 +186,12 @@
 						<div class="form-group row">
 							<div class="col-sm-6">
 								<input type="submit" value="Guardar" class="btn btn-secondary"></input>
-								<a href="/contracts/list" class="btn btn-danger">Cancelar</a>
+								<a href="/genres/list" class="btn btn-danger">Cancelar</a>
 							</div>
 						</div>
 
 					</form>
-					
-					<p th:text="${mensaje}" class="form-text text-success"></p>
+					<p th:text="${mensaje}" style="color:red"> </p>
 
 
 
@@ -266,7 +240,7 @@
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button"
 						data-dismiss="modal">Cancelar</button>
-					<a class="btn btn-primary" th:href="@{/contracts/index}">Cerrar
+					<a class="btn btn-primary" th:href="@{/categories/index}">Cerrar
 						Sesión</a>
 				</div>
 			</div>

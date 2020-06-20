@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import pe.edu.upc.entity.Artist;
 import pe.edu.upc.serviceinterface.IArtistService;
+import pe.edu.upc.serviceinterface.IGenreService;
 
 @Controller
 @RequestMapping("/artists")
@@ -23,15 +24,20 @@ public class ArtistController {
 	@Autowired
 	private IArtistService aS;
 	
+	@Autowired
+	private IGenreService gS;
+	
 	@GetMapping("/new")
 	public String newArtist(Model model) {
 		model.addAttribute("artist", new Artist());
+		model.addAttribute("listGenres", gS.listGenre());
 		return "artist/artist";
 	}
 	
 	@PostMapping("/save")
 	public String saveArtist(@Validated Artist artist, BindingResult result, Model model) throws Exception {
 		if (result.hasErrors()) {
+			model.addAttribute("listGenres",gS.listGenre());
 			return "artist/artist";
 		} else {
 			
@@ -81,6 +87,7 @@ public class ArtistController {
 			objRedir.addFlashAttribute("mensaje", "Ocurrio un error");
 			return "redirect:/artists/list";
 		} else {
+			model.addAttribute("listGenres", gS.listGenre());
 			model.addAttribute("artist", objPro.get());
 			return "artist/artist";
 		}

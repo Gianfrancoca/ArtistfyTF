@@ -72,6 +72,9 @@
 					<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item" th:href="@{/events/list}">Eventos</a>						
 					</div>
+					<div class="bg-white py-2 collapse-inner rounded">
+						<a class="collapse-item" th:href="@{/genres/list}">Genero</a>						
+					</div>
 				</div></li>
 
 
@@ -178,7 +181,7 @@
 								<td th:text="${art.email}"></td>
 								<td th:text="${art.phone}"></td>
 								<td th:text="${art.skill}"></td>
-								<td th:text="${art.genre}"></td>
+								<td th:text="${art.genre.nameGenre}"></td>
 								<td th:text="${art.websiteUrl}"></td>
 								<td><a th:href="@{'/artists/delete/'+${art.idArtist}}">
 										<i class="iconf fa fa-trash" style="color: red"></i>

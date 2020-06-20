@@ -67,6 +67,9 @@
 					<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item" th:href="@{/events/list}">Eventos</a>
 					</div>
+					<div class="bg-white py-2 collapse-inner rounded">
+						<a class="collapse-item" th:href="@{/genres/list}">Genero</a>						
+					</div>
 				</div></li>
 
 			<!-- Sidebar Toggler (Sidebar) -->
@@ -217,15 +220,18 @@
 									th:if="${#fields.hasErrors('skill')}" th:errors="*{skill}"></small>
 							</div>
 						</div>
+						
 						<div class="form-group row">
-							<label for="name" class="col-sm-2 col-form-label">Genero</label>
+							<label for="artist">Generos:</label>
 							<div class="col-sm-6">
-								<input type="text" th:field="*{genre}" class="form-control"
-									th:errorclass="'form-control alert-danger'" /> <small
-									class="form-text text-danger"
-									th:if="${#fields.hasErrors('genre')}" th:errors="*{genre}"></small>
+								<select class="form-control" th:field="*{genre.idGenre}">
+									<option th:each="a: ${listGenres}"
+										th:value="${a.idGenre}" th:text="${a.nameGenre}"
+										th:selected="(${a.idGenre} == *{genre.idGenre})"></option>
+								</select>
 							</div>
 						</div>
+						
 						<div class="form-group row">
 							<label for="name" class="col-sm-2 col-form-label">Website</label>
 							<div class="col-sm-6">

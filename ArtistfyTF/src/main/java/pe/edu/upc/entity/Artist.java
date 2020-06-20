@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
@@ -60,10 +62,14 @@ public class Artist implements Serializable{
 	@Column(name = "skill",nullable = false, length=50)
 	private String skill;
 	
-	@NotEmpty(message="El genero es obligatorio")
-	@Pattern(regexp = "[a-zA-Z]+", message="El genero solo puede tener letras.")
-	@Column(name = "genre",nullable = false, length=50)
-	private String genre;
+	//@NotEmpty(message="El genero es obligatorio")
+	//@Pattern(regexp = "[a-zA-Z]+", message="El genero solo puede tener letras.")
+	//@Column(name = "genre",nullable = false, length=50)
+	//private String genre;
+	
+	@ManyToOne
+	@JoinColumn(name = "idGenre", nullable = false)
+	private Genre genre;
 	
 	@NotEmpty(message="La url es obligatorio")
 	@Pattern(regexp = "[a-zA-Z].+", message="La url solo puede tener letras.")
@@ -75,8 +81,15 @@ public class Artist implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-	public Artist(int idArtist, String firstName, String lastName, int dni, String email, int phone, String skill,
-			String genre, String websiteUrl) {
+	public Artist(int idArtist,
+			@NotEmpty(message = "El nombre es obligatorio") @Pattern(regexp = "[a-zA-Z]+", message = "El nombre solo puede tener letras.") String firstName,
+			@NotEmpty(message = "El apellido es obligatorio") @Pattern(regexp = "[a-zA-Z]+", message = "El apellido solo puede tener letras.") String lastName,
+			@Positive(message = "El valor tiene que ser positivo") @Min(value = 10000000, message = "Solo se puede tener 8 digitos") @Max(value = 99999999, message = "Solo se puede tener 8 digitos") @NotNull(message = "El dni es obligatorio") int dni,
+			@Email(message = "No cuenta con el formato de email.") @NotEmpty(message = "El email es obligatorio") String email,
+			@Positive(message = "El valor tiene que ser positivo") @Min(value = 100000000, message = "Solo se puede tener 9 digitos") @Max(value = 999999999, message = "Solo se puede tener 9 digitos") @NotNull(message = "El telefono es obligatorio") int phone,
+			@NotEmpty(message = "La habilidad es obligatorio") @Pattern(regexp = "[a-zA-Z]+", message = "La habilidad solo puede tener letras.") String skill,
+			Genre genre,
+			@NotEmpty(message = "La url es obligatorio") @Pattern(regexp = "[a-zA-Z].+", message = "La url solo puede tener letras.") String websiteUrl) {
 		super();
 		this.idArtist = idArtist;
 		this.firstName = firstName;
@@ -145,11 +158,11 @@ public class Artist implements Serializable{
 		this.skill = skill;
 	}
 
-	public String getGenre() {
+	public Genre getGenre() {
 		return genre;
 	}
 
-	public void setGenre(String genre) {
+	public void setGenre(Genre genre) {
 		this.genre = genre;
 	}
 
@@ -160,6 +173,8 @@ public class Artist implements Serializable{
 	public void setWebsiteUrl(String websiteUrl) {
 		this.websiteUrl = websiteUrl;
 	}
+
+	
 	
 	
 }
