@@ -3,6 +3,7 @@ package pe.edu.upc.controller;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +19,7 @@ import pe.edu.upc.serviceinterface.IContractService;
 
 @Controller
 @RequestMapping("/contracts")
+@Secured("ROLE_ADMIN")
 public class ContractController {
 	
 	@Autowired
@@ -40,8 +42,8 @@ public class ContractController {
 			return "contract/contract";
 		} else {
 			cS.insert(contract);
-			model.addAttribute("mensaje", "Contrato se registro correctamente");
-			return "contract/contract";
+			model.addAttribute("listArtists", aS.listArtist());
+			return "contract/listContracts";
 		}
 	}
 	

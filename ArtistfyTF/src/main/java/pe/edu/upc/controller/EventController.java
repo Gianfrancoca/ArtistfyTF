@@ -40,8 +40,8 @@ public class EventController {
 			return "event/event";
 		} else {
 			eS.insert(event);
-			model.addAttribute("mensaje", "Evento se registro correctamente");
-			return "event/event";
+			model.addAttribute("listOrganizers", oS.listOrganizer());
+			return "event/listEvents";
 		}
 	}
 

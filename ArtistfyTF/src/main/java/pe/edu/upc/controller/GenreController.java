@@ -14,6 +14,7 @@ import pe.edu.upc.serviceinterface.IGenreService;
 
 @Controller
 @RequestMapping("/genres")
+
 public class GenreController {
 	
 	@Autowired

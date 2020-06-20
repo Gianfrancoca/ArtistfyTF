@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Artistfy</title>
+<title>2020</title>
 
 <!-- Custom fonts for this template-->
 <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
@@ -38,13 +38,11 @@
 			<a
 				class="sidebar-brand d-flex align-items-center justify-content-center"
 				th:href="@{/artists/list}">
-				<div class="sidebar-brand-icon">
-					<img th:src="@{/img/artistfy.png}" height="50" alt="logo"
-						align="middle"></img>
-					<!--  <i class="fas fa-leaf"></i> -->
-				</div> <!-- <div class="sidebar-brand-text mx-2">Programación en Web</div>-->
+				<div class="sidebar-brand-icon rotate-n-15">
+					<i class="fas fa-leaf"></i>
+				</div>
+				<div class="sidebar-brand-text mx-2">Programación en web</div>
 			</a>
-
 
 			<!-- Divider -->
 			<hr class="sidebar-divider my-0">
@@ -62,17 +60,14 @@
 					<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item" th:href="@{/artists/list}">Artistas</a>
 					</div>
-					<div class="bg-white py-2 collapse-inner rounded">
+						<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item" th:href="@{/contracts/list}">Contratos</a>
 					</div>
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" th:href="@{/organizers/list}">Organizadores</a>
+						<a class="collapse-item" th:href="@{/organizers/list}">Organizadores</a>						
 					</div>
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" th:href="@{/events/list}">Eventos</a>
-					</div>
-					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" th:href="@{/genres/list}">Genero</a>						
+						<a class="collapse-item" th:href="@{/events/list}">Eventos</a>						
 					</div>
 						<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item" th:href="@{/users/list}">Usuarios</a>
@@ -140,7 +135,7 @@
 									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Perfil
 								</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="artists/index"
+								<a class="dropdown-item" href="categories/index"
 									data-toggle="modal" data-target="#logoutModal"> <i
 									class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 									Cerrar sesión
@@ -156,31 +151,9 @@
 				<div class="container-fluid">
 
 					<!-- Page Heading -->
-					<h1 class="h3 mb-4 text-gray-800">Eventos</h1>
+					<h1 class="h3 mb-4 text-gray-800">Usuarios</h1>
 
-					<a th:href="@{/events/new/}" class="btn btn-secondary btn-xs">Nuevo</a>
-
-				<form th:action="@{/events/search}" method="post"
-						th:object="${event}">
-						<div class="form-group">
-							<table>
-
-								<tbody>
-									<tr>
-										<td><label for="name"
-											class="col-sm-2 col-form-label">Buscar:</label></td>
-										<td><input type="text" class="form-control"
-											th:field="*{name}" id="name"
-											placeholder="Nombre a buscar"></input></td>
-										<td><button type="submit" class="btn btn-danger">
-												<i class="iconf fa fa-search" style="color: white;"></i>
-											</button></td>
-										<td><a href="/events/list" class="btn btn-danger">Limpiar</a></td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</form>
+					<a th:href="@{/users/new/}" class="btn btn-secondary btn-xs">Nuevo</a>
 
 					<hr class="sidebar-divider">
 
@@ -188,37 +161,23 @@
 						<thead class="thead-dark">
 							<tr>
 								<th scope="col">Id</th>
-								<th scope="col">Organizador</th>
-								<th scope="col">Nombre</th>
-								<th scope="col">Descripcion</th>
-								<th scope="col">Requisitos</th>
-								<th scope="col">Salario</th>
-								<th scope="col">FehaEvento</th>
-								<th scope="col">Operacion</th>
+								<th scope="col">usuario</th>
+
+
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="e: ${listEvents}">
-								<td th:text="${e.idEvent}"></td>
-								<td th:text="${e.organizer.firstName}"></td>
-								<td th:text="${e.name}"></td>
-								<td th:text="${e.description}"></td>
-								<td th:text="${e.requeriments}"></td>
-								<td th:text="${e.offeredSalary}"></td>
-								<td th:text="${#dates.format(e.scheduleAt,'dd/MM/yyyy')}"></td>
-								<td><a th:href="@{'/events/delete/'+${e.idEvent}}"> <i
-										class="iconf fa fa-trash" style="color: red"></i>
-								</a> <a th:href="@{'/events/irupdate/'+${e.idEvent}}"> <i
-										class="iconf fa fa-pen" style="color: blue"></i>
-								</a></td>
+							<tr th:each="u: ${listUsers}">
+								<td th:text="${u.id}"></td>
+								<td th:text="${u.username}"></td>
 							</tr>
 						</tbody>
 					</table>
+
 					<p th:text="${mensaje}" class="form-text text-success"></p>
 
 				</div>
 				<!-- /.container-fluid -->
-
 
 			</div>
 			<!-- End of Main Content -->
@@ -260,10 +219,13 @@
 				<div class="modal-body">Seleccione "Cerrar sesión" a
 					continuación si está listo para finalizar su sesión actual.</div>
 				<div class="modal-footer">
-					<button class="btn btn-secondary" type="button"
-						data-dismiss="modal">Cancelar</button>
-					<a class="btn btn-primary" th:href="@{/artists/index}">Cerrar
-						sesión</a>
+					<form id="logoutForm" th:action="@{/logout}" method="post">
+						<button class="btn btn-danger"
+							onclick="document.getElementById('logoutForm').submit();"
+							type="submit">Cerrar</button>
+						<button class="btn btn-dark" type="button" data-dismiss="modal"
+							th:href="@{/artists/list}">Cancel</button>
+					</form>
 				</div>
 			</div>
 		</div>
