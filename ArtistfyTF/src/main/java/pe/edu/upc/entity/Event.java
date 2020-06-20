@@ -32,15 +32,15 @@ public class Event implements Serializable{
 	private Organizer organizer;
 	
 	@NotEmpty(message="El nombre es obligatorio")
-	@Column(name = "name", nullable = false, length=50)
+	@Column(name = "name", nullable = false,length=50)
 	private String name;
 	
 	@NotEmpty(message = "Ingresa la descripcion")
-	@Column(name = "description", nullable = false, length = 45)
+	@Column(name = "description", nullable = false,length = 45)
 	private String description;
 	
 	@NotEmpty(message = "Ingresa los requerimientos")
-	@Column(name = "requeriments", nullable = false, length = 45)
+	@Column(name = "requeriments",nullable = false, length = 45)
 	private String requeriments;
 	
 	@NotNull(message="El salario es obligatorio")
