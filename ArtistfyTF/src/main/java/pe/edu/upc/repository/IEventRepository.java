@@ -8,5 +8,7 @@ import pe.edu.upc.entity.Event;
 @Repository
 public interface IEventRepository extends JpaRepository<Event, Integer>{
 
-
+  
+	
+	
 }
