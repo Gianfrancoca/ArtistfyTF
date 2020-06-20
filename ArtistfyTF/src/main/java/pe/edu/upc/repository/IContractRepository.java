@@ -8,5 +8,7 @@ import pe.edu.upc.entity.Contract;
 
 @Repository
 public interface IContractRepository extends JpaRepository<Contract, Integer>{
- 
+   
+	
+	
 } 
