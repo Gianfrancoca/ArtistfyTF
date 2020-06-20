@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Artistfy</title>
+<title>2020</title>
 
 <!-- Custom fonts for this template-->
 <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
@@ -33,25 +33,26 @@
 		<ul
 			class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
 			id="accordionSidebar">
+
 			<!-- Sidebar - Brand -->
 			<a
 				class="sidebar-brand d-flex align-items-center justify-content-center"
-				th:href="@{/artists/list}">
-				<div class="sidebar-brand-icon">
-				<img th:src="@{/img/artistfy.png}" height="50"  alt="logo"
-									align="middle"></img>
-				<!--  <i class="fas fa-leaf"></i> -->	
+				th:href="@{/categories/list}">
+				<div class="sidebar-brand-icon rotate-n-15">
+					<i class="fas fa-leaf"></i>
 				</div>
-			<!-- <div class="sidebar-brand-text mx-2">Programación en Web</div>-->
+				<div class="sidebar-brand-text mx-2">Programación en web</div>
 			</a>
 
 			<!-- Divider -->
 			<hr class="sidebar-divider my-0">
 
 
+
+
 			<!-- Nav Item - Pages Collapse Menu -->
 			<li class="nav-item"><a class="nav-link collapsed" href="#"
-				data-target="#collapseTwo" aria-expanded="false"
+				data-target="#collapseTwo" aria-expanded=true
 				aria-controls="collapseTwo"> <i class="fas fa-fw fa-cog"></i> <span>Men&uacute;</span>
 			</a>
 				<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
@@ -72,6 +73,11 @@
 						<a class="collapse-item" th:href="@{/genres/list}">Genero</a>						
 					</div>
 				</div></li>
+
+
+
+			<!-- Divider -->
+			<hr class="sidebar-divider">
 
 			<!-- Sidebar Toggler (Sidebar) -->
 
@@ -118,7 +124,6 @@
 								class="mr-2 d-none d-lg-inline text-gray-600 small"><img
 									th:src="@{/img/logout.png}" width="30" height="30" alt="logo"
 									align="middle"></img></span>
-
 						</a> <!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -127,8 +132,8 @@
 									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Perfil
 								</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="#" data-toggle="modal"
-									data-target="#logoutModal"> <i
+								<a class="dropdown-item" href="categories/index"
+									data-toggle="modal" data-target="#logoutModal"> <i
 									class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 									Cerrar sesión
 								</a>
@@ -138,127 +143,90 @@
 
 				</nav>
 				<!-- End of Topbar -->
+				<div class="container">
+					<div class="card">
+						<div class="card-header text-white bg-dark mb-3">Detalle de
+							Artista</div>
+						<div class="card-body">
 
-				<!-- Begin Page Content -->
-				<div class="container-fluid">
+							<div class="table-responsive">
+								<table class="table table-white">
 
-					<!-- Page Heading -->
-					<h1 class="h3 mb-4 text-gray-800">Eventos</h1>
+									<tbody>
+										<tr>
+											<td>CODIGO</td>
+											<td th:text="${artist.idArtist}"></td>
+										</tr>
+										<tr>
+											<td>Nombre</td>
+											<td th:text="${artist.firstName}"></td>
+										</tr>
+										<tr>
+											<td>Aepllido</td>
+											<td th:text="${artist.lastName}"></td>
+										</tr>
+										<tr>
+											<td>DNI</td>
+											<td th:text="${artist.dni}"></td>
+										</tr>
+										<tr>
+											<td>Email</td>
+											<td th:text="${artist.email}"></td>
+										</tr>
+										<tr>
+											<td>Telefono</td>
+											<td th:text="${artist.phone}"></td>
+										</tr>
+										<tr>
+											<td>Habilidad</td>
+											<td th:text="${artist.skill}"></td>
+										</tr>
+										<tr>
+											<td>Genero</td>
+											<td th:text="${artist.genre.nameGenre}"></td>
+										</tr>
+										<tr>
+											<td>Website</td>
+											<td th:text="${artist.websiteUrl}"></td>
+										</tr>
+										<tr>
+											<td>FOTO</td>
+											<td><img th:if="${#strings.length(artist.foto)> 0}"
+												class="img-thumbnail rounded float-left"
+												style="max-width: 50%;"
+												th:src="@{'/artists/uploads/' + ${artist.foto}}"
+												th:alt="${artist.foto}" /></td>
+										</tr>
+									</tbody>
 
-					<hr class="sidebar-divider">
-					<div th:object="${event}" th:remove="tag">
-						<ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger"
-							role="alert">
-							<li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
-						</ul>
+								</table>
+
+								<a th:href="@{/artists/list}" type="button"
+									class="btn btn-danger k"> <span
+									class="glyphicon glyphicon-circle-arrow-left"></span> Volver
+								</a>
+							</div>
+						</div>
 					</div>
-
-					<form th:action="@{/events/save}" th:object="${event}"
-						method="post">
-						<div class="form-group row">
-							<label for="name" class="col-sm-2 col-form-label">Codigo</label>
-							<div class="col-sm-6">
-								<input type="text" th:field="*{idEvent}" class="form-control"
-									th:errorclass="'form-control alert-danger'" /> <small
-									class="form-text text-danger"
-									th:if="${#fields.hasErrors('idEvent')}"
-									th:errors="*{idEvent}"></small>
-							</div>
-						</div>
-						
-						<div class="form-group row">
-							<label for="organizer">Organizador:</label>
-							<div class="col-sm-6">
-								<select class="form-control" th:field="*{organizer.idOrganizer}">
-									<option th:each="o: ${listOrganizers}"
-										th:value="${o.idOrganizer}" th:text="${o.firstName}"
-										th:selected="(${o.idOrganizer} == *{organizer.idOrganizer})"></option>
-								</select>
-							</div>
-						</div>
-						
-						<div class="form-group row">
-							<label for="name" class="col-sm-2 col-form-label">Nombre </label>
-							<div class="col-sm-6">
-								<input type="text" th:field="*{name}" class="form-control" required="required"
-									th:errorclass="'form-control alert-danger'" /> <small
-									class="form-text text-danger"
-									th:if="${#fields.hasErrors('name')}"
-									th:errors="*{name}"></small>
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="description" class="col-sm-2 col-form-label">Descripcion</label>
-							<div class="col-sm-6">
-								<textarea type="text" th:field="*{description}" class="form-control" required="required"
-									th:errorclass="'form-control alert-danger'" /> <small
-									class="form-text text-danger"
-									th:if="${#fields.hasErrors('description')}"
-									th:errors="*{description}"></small>
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="requeriments" class="col-sm-2 col-form-label">Requisitos</label>
-							<div class="col-sm-6">
-								<input type="text" th:field="*{requeriments}" class="form-control"  required="required"
-									th:errorclass="'form-control alert-danger'" /> <small
-									class="form-text text-danger"
-									th:if="${#fields.hasErrors('requeriments')}" th:errors="*{requeriments}"></small>
-							</div>
-						</div>
-						
-						<div class="form-group row">
-							<label for="offeredSalary" class="col-sm-2 col-form-label">Salario</label>
-							<div class="col-sm-6">
-								<input type="number" th:field="*{offeredSalary}" class="form-control"required="required"
-									th:errorclass="'form-control alert-danger'" /> <small
-									class="form-text text-danger"
-									th:if="${#fields.hasErrors('offeredSalary')}" th:errors="*{offeredSalary}"></small>
-							</div>
-						</div>
-						
-							<div class="form-group row">
-							<label for="scheduleAt" class="col-sm-2 col-form-label">Fecha del evento</label> 
-							<div class="col-sm-6">
-								<input type="date" th:field="*{scheduleAt}" class="form-control" required="required"
-									th:errorclass="'form-control alert-danger'" /> <small
-									class="form-text text-danger"
-									th:if="${#fields.hasErrors('scheduleAt')}" th:errors="*{scheduleAt}"></small>
-							</div>
-						</div>
-						
-
-						<div class="form-group row">
-							<div class="col-sm-6">
-								<input type="submit" value="Guardar" class="btn btn-secondary"></input>
-								<a href="/events/list" class="btn btn-danger">Cancelar</a>
-							</div>
-						</div>
-
-					</form>
-					
-					<p th:text="${mensaje}" class="form-text text-success"></p>
-
-
-
 				</div>
-				<!-- /.container-fluid -->
-
 			</div>
-			<!-- End of Main Content -->
-
-			<!-- Footer -->
-			<footer class="sticky-footer bg-white">
-				<div class="container my-auto">
-					<div class="copyright text-center my-auto">
-						<span>Copyright &copy; Web 2020</span>
-					</div>
-				</div>
-			</footer>
-			<!-- End of Footer -->
+			<!-- /.container-fluid -->
 
 		</div>
-		<!-- End of Content Wrapper -->
+		<!-- End of Main Content -->
+
+		<!-- Footer -->
+		<footer class="sticky-footer bg-white">
+			<div class="container my-auto">
+				<div class="copyright text-center my-auto">
+					<span>Copyright &copy; Web 2020</span>
+				</div>
+			</div>
+		</footer>
+		<!-- End of Footer -->
+
+	</div>
+	<!-- End of Content Wrapper -->
 
 	</div>
 	<!-- End of Page Wrapper -->
@@ -282,12 +250,15 @@
 					</button>
 				</div>
 				<div class="modal-body">Seleccione "Cerrar sesión" a
-					continuación si está listo para finalizar su sesión actual</div>
+					continuación si está listo para finalizar su sesión actual.</div>
 				<div class="modal-footer">
-					<button class="btn btn-secondary" type="button"
-						data-dismiss="modal">Cancelar</button>
-					<a class="btn btn-primary" th:href="@{/contracts/index}">Cerrar
-						Sesión</a>
+					<form id="logoutForm" th:action="@{/logout}" method="post">
+						<button class="btn btn-danger"
+							onclick="document.getElementById('logoutForm').submit();"
+							type="submit">Cerrar</button>
+						<button class="btn btn-dark" type="button" data-dismiss="modal"
+							th:href="@{/categories/list}">Cancel</button>
+					</form>
 				</div>
 			</div>
 		</div>

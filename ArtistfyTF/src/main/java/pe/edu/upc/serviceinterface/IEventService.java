@@ -10,6 +10,7 @@ public interface IEventService {
 	public void insert(Event event);
 	List<Event> listEvent();
 	public void delete (int idEvent);
+	List<Event> findNameEventFull(String name);
 	Optional<Event> searchId(int idEvent);
 	
 }

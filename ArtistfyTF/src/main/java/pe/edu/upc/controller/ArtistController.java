@@ -1,8 +1,13 @@
 package pe.edu.upc.controller;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,11 +16,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import pe.edu.upc.entity.Artist;
 import pe.edu.upc.serviceinterface.IArtistService;
 import pe.edu.upc.serviceinterface.IGenreService;
+import pe.edu.upc.serviceinterface.IUploadService;
 
 @Controller
 @RequestMapping("/artists")
@@ -27,6 +36,9 @@ public class ArtistController {
 	@Autowired
 	private IGenreService gS;
 	
+	@Autowired
+	private IUploadService uploadFileService;
+	
 	@GetMapping("/new")
 	public String newArtist(Model model) {
 		model.addAttribute("artist", new Artist());
@@ -35,11 +47,31 @@ public class ArtistController {
 	}
 	
 	@PostMapping("/save")
-	public String saveArtist(@Validated Artist artist, BindingResult result, Model model) throws Exception {
+	public String saveArtist(@Validated Artist artist, BindingResult result, Model model,
+			@RequestParam("file") MultipartFile foto, RedirectAttributes flash, SessionStatus status) throws Exception {
 		if (result.hasErrors()) {
 			model.addAttribute("listGenres",gS.listGenre());
 			return "artist/artist";
 		} else {
+			
+			if (!foto.isEmpty()) {
+
+				if (artist.getIdArtist() > 0 && artist.getFoto() != null && artist.getFoto().length() > 0) {
+
+					uploadFileService.delete(artist.getFoto());
+				}
+
+				String uniqueFilename = null;
+				try {
+					uniqueFilename = uploadFileService.copy(foto);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+				flash.addFlashAttribute("info", "Has subido correctamente '" + uniqueFilename + "'");
+				artist.setFoto(uniqueFilename);
+			}
+	
 			
 			int rpta = aS.insert(artist);
 			if(rpta>0) {
@@ -91,6 +123,37 @@ public class ArtistController {
 			model.addAttribute("artist", objPro.get());
 			return "artist/artist";
 		}
+	}
+	
+	@GetMapping(value = "/uploads/{filename:.+}")
+	public ResponseEntity<Resource> verFoto(@PathVariable String filename) {
+
+		Resource recurso = null;
+
+		try {
+			recurso = uploadFileService.load(filename);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ResponseEntity.ok()
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\"")
+				.body(recurso);
+	}
+	
+	//@Secured("ROLE_ESTUDIANTE")
+	@GetMapping(value = "/view/{id}")
+	public String ver(@PathVariable(value = "id") Integer id, Model model, RedirectAttributes flash) {
+
+		Optional<Artist> artist = aS.searchId(id);
+		if (artist == null) {
+			flash.addFlashAttribute("error", "El artista no existe en la base de datos");
+			return "redirect:/artists/list";
+		}
+
+		model.addAttribute("artist", artist.get());
+
+		return "artist/view";
 	}
 	
 }

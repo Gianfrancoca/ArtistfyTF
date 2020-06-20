@@ -154,7 +154,27 @@
 
 					<a th:href="@{/events/new/}" class="btn btn-secondary btn-xs">Nuevo</a>
 
-				
+				<form th:action="@{/events/search}" method="post"
+						th:object="${event}">
+						<div class="form-group">
+							<table>
+
+								<tbody>
+									<tr>
+										<td><label for="name"
+											class="col-sm-2 col-form-label">Buscar:</label></td>
+										<td><input type="text" class="form-control"
+											th:field="*{name}" id="name"
+											placeholder="Nombre a buscar"></input></td>
+										<td><button type="submit" class="btn btn-danger">
+												<i class="iconf fa fa-search" style="color: white;"></i>
+											</button></td>
+										<td><a href="/events/list" class="btn btn-danger">Limpiar</a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</form>
 
 					<hr class="sidebar-divider">
 

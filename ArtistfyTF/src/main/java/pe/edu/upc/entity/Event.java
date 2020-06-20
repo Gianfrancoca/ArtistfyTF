@@ -12,9 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Future;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.Min;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -32,24 +30,25 @@ public class Event implements Serializable{
 	@JoinColumn(name = "idOrganizer", nullable = false)
 	private Organizer organizer;
 	
-	@NotEmpty(message="El nombre es obligatorio")
+	//@NotNull(message="El nombre es obligatorio")
 	@Column(name = "name",nullable = false, length=50)
 	private String name;
 	
-	@NotEmpty(message = "Ingresa la descripcion")
+	//@NotNull(message = "Ingresa la descripcion")
 	@Column(name = "description", nullable = false, length = 45)
 	private String description;
 	
-	@NotEmpty(message = "Ingresa los requerimientos")
+	//@NotEmpty(message = "Ingresa los requerimientos")
 	@Column(name = "requeriments", nullable = false, length = 45)
 	private String requeriments;
 	
-	@Positive(message = "El valor tiene que ser positivo")
-	@NotNull(message="El salario es obligatorio")
+	//@Positive(message = "El valor tiene que ser positivo")
+	//@NotNull(message="El salario es obligatorio")
+	@Min(value = 1, message="El salario mínimo es 1")
 	@Column(name = "offeredSalary", nullable = false, columnDefinition = "Decimal(8,2)")
 	private Double offeredSalary;
 	
-	@NotNull
+	//@NotNull
 	@Future(message = "No puedes seleccionar un dia pasado")
 	@Column(name = "birthDatePersona")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")

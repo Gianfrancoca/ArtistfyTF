@@ -62,6 +62,8 @@ public class Artist implements Serializable{
 	@Column(name = "skill",nullable = false, length=50)
 	private String skill;
 	
+	private String foto;
+	
 	//@NotEmpty(message="El genero es obligatorio")
 	//@Pattern(regexp = "[a-zA-Z]+", message="El genero solo puede tener letras.")
 	//@Column(name = "genre",nullable = false, length=50)
@@ -81,6 +83,8 @@ public class Artist implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
+
+
 	public Artist(int idArtist,
 			@NotEmpty(message = "El nombre es obligatorio") @Pattern(regexp = "[a-zA-Z]+", message = "El nombre solo puede tener letras.") String firstName,
 			@NotEmpty(message = "El apellido es obligatorio") @Pattern(regexp = "[a-zA-Z]+", message = "El apellido solo puede tener letras.") String lastName,
@@ -88,7 +92,7 @@ public class Artist implements Serializable{
 			@Email(message = "No cuenta con el formato de email.") @NotEmpty(message = "El email es obligatorio") String email,
 			@Positive(message = "El valor tiene que ser positivo") @Min(value = 100000000, message = "Solo se puede tener 9 digitos") @Max(value = 999999999, message = "Solo se puede tener 9 digitos") @NotNull(message = "El telefono es obligatorio") int phone,
 			@NotEmpty(message = "La habilidad es obligatorio") @Pattern(regexp = "[a-zA-Z]+", message = "La habilidad solo puede tener letras.") String skill,
-			Genre genre,
+			String foto, Genre genre,
 			@NotEmpty(message = "La url es obligatorio") @Pattern(regexp = "[a-zA-Z].+", message = "La url solo puede tener letras.") String websiteUrl) {
 		super();
 		this.idArtist = idArtist;
@@ -98,9 +102,12 @@ public class Artist implements Serializable{
 		this.email = email;
 		this.phone = phone;
 		this.skill = skill;
+		this.foto = foto;
 		this.genre = genre;
 		this.websiteUrl = websiteUrl;
 	}
+
+
 
 	public int getIdArtist() {
 		return idArtist;
@@ -174,7 +181,15 @@ public class Artist implements Serializable{
 		this.websiteUrl = websiteUrl;
 	}
 
-	
+	public String getFoto() {
+		return foto;
+	}
+
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
 	
 	
 }

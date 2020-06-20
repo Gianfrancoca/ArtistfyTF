@@ -1,4 +1,5 @@
 package pe.edu.upc.controller;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,7 @@ public class EventController {
 	@GetMapping("/list")
 	public String listEvents(Model model) {
 		try {
+			model.addAttribute("event", new Event());
 			model.addAttribute("listEvents", eS.listEvent());
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -85,5 +87,16 @@ public class EventController {
 			return "event/event";
 		}
 	}
+	
+	@RequestMapping("/search")
+	public String searchEvents(Model model, @Validated Event event) throws Exception{
+	List<Event> listEvents;
+	listEvents=eS.findNameEventFull(event.getName());
+	if(listEvents.isEmpty()) {
+		model.addAttribute("mensaje","No hay registros para su busqueda.");
+	}
+	model.addAttribute("listEvents", listEvents);
+	return "event/listEvents";
+		}
 
 }
