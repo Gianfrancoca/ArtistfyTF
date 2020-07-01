@@ -8,6 +8,7 @@ import pe.edu.upc.entity.Artist;
 public interface IArtistService {
 
 	public int insert(Artist artist);
+	public void update(Artist artist);
 	List<Artist> listArtist();
 	public void delete(int idArtist);
 	Optional<Artist> searchId(int idArtist);

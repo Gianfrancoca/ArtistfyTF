@@ -63,15 +63,15 @@
 						<a class="collapse-item" th:href="@{/contracts/list}">Contratos</a>
 					</div>
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" th:href="@{/organizers/list}">Organizadores</a>						
+						<a class="collapse-item" th:href="@{/organizers/list}">Organizadores</a>
 					</div>
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" th:href="@{/events/list}">Eventos</a>						
+						<a class="collapse-item" th:href="@{/events/list}">Eventos</a>
 					</div>
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" th:href="@{/genres/list}">Genero</a>						
+						<a class="collapse-item" th:href="@{/genres/list}">Genero</a>
 					</div>
-						<div class="bg-white py-2 collapse-inner rounded">
+					<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item" th:href="@{/users/list}">Usuarios</a>
 					</div>
 					<div class="bg-white py-2 collapse-inner rounded">
@@ -149,102 +149,86 @@
 				<div class="container-fluid">
 
 					<!-- Page Heading -->
-					<h1 class="h3 mb-4 text-gray-800">Eventos</h1>
+					<h1 class="h3 mb-4 text-gray-800">Organizadores</h1>
 
 					<hr class="sidebar-divider">
-					<div th:object="${event}" th:remove="tag">
+					<div th:object="${organizer}" th:remove="tag">
 						<ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger"
 							role="alert">
 							<li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
 						</ul>
 					</div>
 
-					<form th:action="@{/events/save}" th:object="${event}"
+					<form th:action="@{/organizers/update}" th:object="${organizer}"
 						method="post">
 						<div class="form-group row">
 							<label for="name" class="col-sm-2 col-form-label">Codigo</label>
 							<div class="col-sm-6">
-								<input type="text" th:field="*{idEvent}" class="form-control"
+								<input type="text" th:field="*{idOrganizer}" class="form-control"
 									th:errorclass="'form-control alert-danger'" /> <small
 									class="form-text text-danger"
-									th:if="${#fields.hasErrors('idEvent')}"
-									th:errors="*{idEvent}"></small>
-							</div>
-						</div>
-						
-						<div class="form-group row">
-							<label for="organizer">Organizador:</label>
-							<div class="col-sm-6">
-								<select class="form-control" th:field="*{organizer.idOrganizer}">
-									<option th:each="o: ${listOrganizers}"
-										th:value="${o.idOrganizer}" th:text="${o.firstName}"
-										th:selected="(${o.idOrganizer} == *{organizer.idOrganizer})"></option>
-								</select>
-							</div>
-						</div>
-						
-						<div class="form-group row">
-							<label for="name" class="col-sm-2 col-form-label">Nombre </label>
-							<div class="col-sm-6">
-								<input type="text" th:field="*{name}" class="form-control" required="required"
-									th:errorclass="'form-control alert-danger'" /> <small
-									class="form-text text-danger"
-									th:if="${#fields.hasErrors('name')}"
-									th:errors="*{name}"></small>
+									th:if="${#fields.hasErrors('idOrganizer')}"
+									th:errors="*{idOrganizer}"></small>
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="description" class="col-sm-2 col-form-label">Descripcion</label>
+							<label for="name" class="col-sm-2 col-form-label">Nombre</label>
 							<div class="col-sm-6">
-								<textarea type="text" th:field="*{description}" class="form-control" required="required"
+								<input type="text" th:field="*{firstName}" class="form-control"
 									th:errorclass="'form-control alert-danger'" /> <small
 									class="form-text text-danger"
-									th:if="${#fields.hasErrors('description')}"
-									th:errors="*{description}"></small>
+									th:if="${#fields.hasErrors('firstName')}"
+									th:errors="*{firstName}"></small>
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="requeriments" class="col-sm-2 col-form-label">Requisitos</label>
+							<label for="name" class="col-sm-2 col-form-label">Apellido</label>
 							<div class="col-sm-6">
-								<textarea type="text" th:field="*{requeriments}" class="form-control"  required="required"
+								<input type="text" th:field="*{lastName}" class="form-control"
 									th:errorclass="'form-control alert-danger'" /> <small
 									class="form-text text-danger"
-									th:if="${#fields.hasErrors('requeriments')}" th:errors="*{requeriments}"></small>
+									th:if="${#fields.hasErrors('lastName')}"
+									th:errors="*{lastName}"></small>
 							</div>
 						</div>
-						
 						<div class="form-group row">
-							<label for="offeredSalary" class="col-sm-2 col-form-label">Salario</label>
+							<label for="dni" class="col-sm-2 col-form-label">DNI</label>
 							<div class="col-sm-6">
-								<input type="number" th:field="*{offeredSalary}" class="form-control"required="required"
+								<input type="number" th:field="*{dni}" class="form-control" maxlength="8"
 									th:errorclass="'form-control alert-danger'" /> <small
 									class="form-text text-danger"
-									th:if="${#fields.hasErrors('offeredSalary')}" th:errors="*{offeredSalary}"></small>
+									th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"></small>
 							</div>
 						</div>
-						
-							<div class="form-group row">
-							<label for="scheduleAt" class="col-sm-2 col-form-label">Fecha del evento</label> 
+						<div class="form-group row">
+							<label for="name" class="col-sm-2 col-form-label">Email</label>
 							<div class="col-sm-6">
-								<input type="date" th:field="*{scheduleAt}" class="form-control" required="required"
+								<input type="text" th:field="*{email}" class="form-control"
 									th:errorclass="'form-control alert-danger'" /> <small
 									class="form-text text-danger"
-									th:if="${#fields.hasErrors('scheduleAt')}" th:errors="*{scheduleAt}"></small>
+									th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
 							</div>
 						</div>
-						
+						<div class="form-group row">
+							<label for="phone" class="col-sm-2 col-form-label">Telefono</label>
+							<div class="col-sm-6">
+								<input type="number" th:field="*{phone}" class="form-control" maxlength="9"
+									th:errorclass="'form-control alert-danger'" /> <small
+									class="form-text text-danger"
+									th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></small>
+							</div>
+						</div>
+
 
 						<div class="form-group row">
 							<div class="col-sm-6">
 								<input type="submit" value="Guardar" class="btn btn-secondary"></input>
-								<a href="/events/list" class="btn btn-danger">Cancelar</a>
+								<a href="/organizers/list" class="btn btn-danger">Cancelar</a>
 							</div>
 						</div>
 
 					</form>
-					
-					<p th:text="${mensaje}" class="form-text text-success"></p>
-
+					<p th:text="${mensaje}" style="color:red"> </p>
 
 
 				</div>
@@ -292,7 +276,7 @@
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button"
 						data-dismiss="modal">Cancelar</button>
-					<a class="btn btn-primary" th:href="@{/contracts/index}">Cerrar
+					<a class="btn btn-primary" th:href="@{/artists/index}">Cerrar
 						Sesión</a>
 				</div>
 			</div>

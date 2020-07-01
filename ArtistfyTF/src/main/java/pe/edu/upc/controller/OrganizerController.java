@@ -19,7 +19,7 @@ import pe.edu.upc.serviceinterface.IOrganizerService;
 
 @Controller
 @RequestMapping("/organizers")
-@Secured("ROLE_ADMIN")
+@Secured({"ROLE_ADMIN", "ROLE_ORGANIZER"})
 public class OrganizerController {
 
 	@Autowired
@@ -51,6 +51,21 @@ public class OrganizerController {
 		
 	}
 	
+	@PostMapping("/update")
+	public String updatteOrganizer(@Validated Organizer organizer, BindingResult result, Model model) throws Exception{
+		
+		if(result.hasErrors()) {
+			return "organizer/organizer";
+		}else {
+			
+			oS.update(organizer);
+			model.addAttribute("listOrganizers", oS.listOrganizer());
+			model.addAttribute("mensaje","Se actualizó correctamente");
+			return "organizer/listOrganizers";
+		}
+		
+	}
+	
 	@GetMapping("/list")
 	public String listOrganizers(Model model) {
 		try {
@@ -62,6 +77,7 @@ public class OrganizerController {
 		return "organizer/listOrganizers";
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@RequestMapping("/delete/{id}")
 	public String deleteArtist(Model model, @PathVariable(value="id") int id){
 		try {
@@ -87,7 +103,7 @@ public class OrganizerController {
 			return "redirect:/organizers/list";
 		} else {
 			model.addAttribute("organizer", objPro.get());
-			return "organizer/organizer";
+			return "organizer/organizerupd";
 		}
 	}
 	

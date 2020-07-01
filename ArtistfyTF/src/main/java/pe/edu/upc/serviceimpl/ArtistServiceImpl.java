@@ -47,4 +47,10 @@ public class ArtistServiceImpl implements Serializable, IArtistService{
 		return aR.findById(idArtist);
 	}
 
+	@Override
+	public void update(Artist artist) {
+		// TODO Auto-generated method stub
+		aR.save(artist);
+	}
+
 }

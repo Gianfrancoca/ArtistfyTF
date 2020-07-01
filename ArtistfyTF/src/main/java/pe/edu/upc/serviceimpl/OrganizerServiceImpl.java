@@ -49,4 +49,10 @@ public class OrganizerServiceImpl implements Serializable, IOrganizerService {
 		return oR.findById(idOrganizer);
 	}
 
+	@Override
+	public void update(Organizer organizer) {
+		// TODO Auto-generated method stub
+		oR.save(organizer);
+	}
+
 }

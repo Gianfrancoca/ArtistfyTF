@@ -29,7 +29,8 @@ import pe.edu.upc.serviceinterface.IUploadService;
 
 @Controller
 @RequestMapping("/artists")
-@Secured("ROLE_ADMIN")
+//@Secured("ROLE_ADMIN")
+@Secured({"ROLE_ADMIN", "ROLE_ARTIST"})
 public class ArtistController {
 
 	@Autowired
@@ -113,14 +114,10 @@ public class ArtistController {
 				artist.setFoto(uniqueFilename);
 			}
 	
-			
-			int rpta = aS.insert(artist);
-			if(rpta>0) {
-			  model.addAttribute("listArtists", aS.listArtist());
-			  return "artist/listArtists";
-			}else {
-				return "artist/artist";
-			}
+			aS.update(artist);
+			model.addAttribute("listArtists", aS.listArtist());
+			model.addAttribute("mensaje","Se actualizó correctamente");
+			return "artist/listArtists";
 			}
 		}
 	
@@ -135,6 +132,7 @@ public class ArtistController {
 		return "artist/listArtists";
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@RequestMapping("/delete/{id}")
 	public String deleteArtist(Model model, @PathVariable(value="id") int id){
 		try {
@@ -181,7 +179,7 @@ public class ArtistController {
 				.body(recurso);
 	}
 	
-	//@Secured("ROLE_ESTUDIANTE")
+	@Secured({"ROLE_ADMIN", "ROLE_ARTIST"})
 	@GetMapping(value = "/view/{id}")
 	public String ver(@PathVariable(value = "id") Integer id, Model model, RedirectAttributes flash) {
 
