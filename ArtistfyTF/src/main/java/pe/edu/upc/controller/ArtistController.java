@@ -78,13 +78,51 @@ public class ArtistController {
 			int rpta = aS.insert(artist);
 			if(rpta>0) {
 			model.addAttribute("mensaje", "DNI ya existe.");
+			model.addAttribute("listGenres",gS.listGenre());
 			return "artist/artist";
 			}else {
 				model.addAttribute("listArtists", aS.listArtist());
-				return "artist/listArtists";
+				return "redirect:/artists/list ";
 			}
 		}
 	}
+	
+	@PostMapping("/update")
+	public String updateArtist(@Validated Artist artist, BindingResult result, Model model,
+			@RequestParam("file") MultipartFile foto, RedirectAttributes flash, SessionStatus status) throws Exception {
+		if (result.hasErrors()) {
+			model.addAttribute("listGenres",gS.listGenre());
+			return "artist/artist";
+		} else {
+			
+			if (!foto.isEmpty()) {
+
+				if (artist.getIdArtist() > 0 && artist.getFoto() != null && artist.getFoto().length() > 0) {
+
+					uploadFileService.delete(artist.getFoto());
+				}
+
+				String uniqueFilename = null;
+				try {
+					uniqueFilename = uploadFileService.copy(foto);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+				flash.addFlashAttribute("info", "Has subido correctamente '" + uniqueFilename + "'");
+				artist.setFoto(uniqueFilename);
+			}
+	
+			
+			int rpta = aS.insert(artist);
+			if(rpta>0) {
+			  model.addAttribute("listArtists", aS.listArtist());
+			  return "artist/listArtists";
+			}else {
+				return "artist/artist";
+			}
+			}
+		}
 	
 	@GetMapping("/list")
 	public String listArtists(Model model) {
@@ -123,7 +161,7 @@ public class ArtistController {
 		} else {
 			model.addAttribute("listGenres", gS.listGenre());
 			model.addAttribute("artist", objPro.get());
-			return "artist/artist";
+			return "artist/artistupd";
 		}
 	}
 	

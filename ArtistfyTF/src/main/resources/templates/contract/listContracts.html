@@ -181,9 +181,9 @@
 								<td th:text="${cont.descriptionContract}"></td>
 								<td th:text="${cont.salary}"></td>
 								<td th:text="${cont.address}"></td>
-								<td><a th:href="@{'/contracts/delete/'+${cont.idContract}}">
-										<i class="iconf fa fa-trash" style="color: red"></i>
-								</a> <a th:href="@{'/contracts/irupdate/'+${cont.idContract}}"> <i
+								<!-- <td><a th:href="@{'/contracts/delete/'+${cont.idContract}}">
+										<i class="iconf fa fa-trash" style="color: red"></i> 
+								</a>--> <td><a th:href="@{'/contracts/irupdate/'+${cont.idContract}}"> <i
 										class="iconf fa fa-pen" style="color: blue"></i>
 								</a></td>
 							</tr>

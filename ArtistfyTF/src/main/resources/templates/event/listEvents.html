@@ -188,24 +188,24 @@
 						<thead class="thead-dark">
 							<tr>
 								<th scope="col">Id</th>
-								<th scope="col">Organizador</th>
 								<th scope="col">Nombre</th>
 								<th scope="col">Descripcion</th>
 								<th scope="col">Requisitos</th>
 								<th scope="col">Salario</th>
 								<th scope="col">FehaEvento</th>
+								<th scope="col">Organizador</th>
 								<th scope="col">Operacion</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr th:each="e: ${listEvents}">
 								<td th:text="${e.idEvent}"></td>
-								<td th:text="${e.organizer.firstName}"></td>
 								<td th:text="${e.name}"></td>
 								<td th:text="${e.description}"></td>
 								<td th:text="${e.requeriments}"></td>
 								<td th:text="${e.offeredSalary}"></td>
 								<td th:text="${#dates.format(e.scheduleAt,'dd/MM/yyyy')}"></td>
+								<td th:text="${e.organizer.firstName}"></td>
 								<td><a th:href="@{'/events/delete/'+${e.idEvent}}"> <i
 										class="iconf fa fa-trash" style="color: red"></i>
 								</a> <a th:href="@{'/events/irupdate/'+${e.idEvent}}"> <i

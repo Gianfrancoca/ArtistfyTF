@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +20,7 @@ import pe.edu.upc.serviceinterface.IOrganizerService;
 
 @Controller
 @RequestMapping("/events")
+@Secured("ROLE_ADMIN")
 public class EventController {
 
 	@Autowired
@@ -29,6 +31,7 @@ public class EventController {
 	@GetMapping("/new")
 	public String newEvent(Model model) {
 		model.addAttribute("event", new Event());
+		model.addAttribute("listEvents", eS.listEvent());
 		model.addAttribute("listOrganizers", oS.listOrganizer());
 		return "event/event";
 	}
@@ -37,11 +40,15 @@ public class EventController {
 	public String saveEvent(@Validated Event event, BindingResult result, Model model) throws Exception {
 		if (result.hasErrors()) {
 			model.addAttribute("listOrganizers", oS.listOrganizer());
+			model.addAttribute("listEvents", eS.listEvent());
 			return "event/event";
 		} else {
 			eS.insert(event);
+			//model.addAttribute("organizer", new Organizer());
+			model.addAttribute("event", new Event());
+			model.addAttribute("listEvents", eS.listEvent());
 			model.addAttribute("listOrganizers", oS.listOrganizer());
-			return "event/listEvents";
+			return "redirect:/events/list";
 		}
 	}
 
@@ -50,6 +57,7 @@ public class EventController {
 		try {
 			model.addAttribute("event", new Event());
 			model.addAttribute("listEvents", eS.listEvent());
+			model.addAttribute("listOrganizers", oS.listOrganizer());
 		} catch (Exception e) {
 			// TODO: handle exception
 			model.addAttribute("error", e.getMessage());

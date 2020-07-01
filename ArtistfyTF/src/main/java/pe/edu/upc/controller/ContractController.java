@@ -31,6 +31,7 @@ public class ContractController {
 	@GetMapping("/new")
 	public String newContract(Model model) {
 		model.addAttribute("contract", new Contract());
+		model.addAttribute("listContracts", cS.listContract());
 		model.addAttribute("listArtists", aS.listArtist());
 		return "contract/contract";
 	}
@@ -39,18 +40,23 @@ public class ContractController {
 	public String saveContract(@Validated Contract contract, BindingResult result, Model model) throws Exception{
 		if(result.hasErrors()) {
 			model.addAttribute("listArtists", aS.listArtist());
+			model.addAttribute("listContracts", cS.listContract());
 			return "contract/contract";
 		} else {
 			cS.insert(contract);
+			model.addAttribute("contract", new Contract());
+			model.addAttribute("listContracts", cS.listContract());
 			model.addAttribute("listArtists", aS.listArtist());
-			return "contract/listContracts";
+			return "redirect:/contracts/list";
 		}
 	}
 	
 	@GetMapping("/list")
 	public String listContracts (Model model) {
 		try {
+			model.addAttribute("contract", new Contract());
 			model.addAttribute("listContracts", cS.listContract());
+			model.addAttribute("listArtists", aS.listArtist());
 		} catch (Exception e) {
 			// TODO: handle exception
 			model.addAttribute("error", e.getMessage());
