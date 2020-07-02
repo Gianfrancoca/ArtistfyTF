@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import pe.edu.upc.entity.Event;
 import pe.edu.upc.serviceinterface.IEventService;
 import pe.edu.upc.serviceinterface.IOrganizerService;
@@ -106,5 +105,20 @@ public class EventController {
 	model.addAttribute("listEvents", listEvents);
 	return "event/listEvents";
 		}
+	
+	@GetMapping(value = "/viewEv/{id}")
+	public String ver(@PathVariable(value = "id") Integer id, Model model, RedirectAttributes flash) {
+
+		Optional<Event> event = eS.searchId(id);
+		if (event == null) {
+			flash.addFlashAttribute("error", "El evento no existe en la base de datos");
+			return "redirect:/events/list";
+		}
+
+		model.addAttribute("event", event.get());
+
+		return "event/viewEv";
+	}
+	
 
 }

@@ -176,7 +176,9 @@
 						</thead>
 						<tbody>
 							<tr th:each="cont: ${listContracts}">
-								<td th:text="${cont.idContract}"></td>
+								<td><a class="btn btn-danger btn-xs"
+									th:href="@{/contracts/viewCon/} + ${cont.idContract}"
+									th:text="${cont.idContract}"></a></td>
 								<td th:text="${cont.artist.firstName}"></td>
 								<td th:text="${cont.descriptionContract}"></td>
 								<td th:text="${cont.salary}"></td>

@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Artistfy</title>
+<title>2020</title>
 
 <!-- Custom fonts for this template-->
 <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
@@ -152,7 +152,7 @@
 				<div class="container">
 					<div class="card">
 						<div class="card-header text-white bg-dark mb-3">Detalle de
-							Artista</div>
+							Contrato</div>
 						<div class="card-body">
 
 							<div class="table-responsive">
@@ -161,53 +161,31 @@
 									<tbody>
 										<tr>
 											<td>CODIGO</td>
-											<td th:text="${artist.idArtist}"></td>
+											<td th:text="${contract.idContract}"></td>
 										</tr>
 										<tr>
-											<td>Nombre</td>
-											<td th:text="${artist.firstName}"></td>
+											<td>Artista</td>
+											<td th:text="${contract.artist.firstName}"></td>
 										</tr>
 										<tr>
-											<td>Apellido</td>
-											<td th:text="${artist.lastName}"></td>
+											<td>Descripcion</td>
+											<td th:text="${contract.descriptionContract}"></td>
 										</tr>
 										<tr>
-											<td>DNI</td>
-											<td th:text="${artist.dni}"></td>
+											<td>Salario</td>
+											<td th:text="${contract.salary}"></td>
 										</tr>
 										<tr>
-											<td>Email</td>
-											<td th:text="${artist.email}"></td>
+											<td>Direccion</td>
+											<td th:text="${contract.address}"></td>
 										</tr>
-										<tr>
-											<td>Telefono</td>
-											<td th:text="${artist.phone}"></td>
-										</tr>
-										<tr>
-											<td>Habilidad</td>
-											<td th:text="${artist.skill}"></td>
-										</tr>
-										<tr>
-											<td>Genero</td>
-											<td th:text="${artist.genre.nameGenre}"></td>
-										</tr>
-										<tr>
-											<td>Website</td>
-											<td th:text="${artist.websiteUrl}"></td>
-										</tr>
-										<tr>
-											<td>FOTO</td>
-											<td><img th:if="${#strings.length(artist.foto)> 0}"
-												class="img-thumbnail rounded float-left"
-												style="max-width: 50%;"
-												th:src="@{'/artists/uploads/' + ${artist.foto}}"
-												th:alt="${artist.foto}" /></td>
-										</tr>
+				
+								
 									</tbody>
 
 								</table>
 
-								<a th:href="@{/artists/list}" type="button"
+								<a th:href="@{/contracts/list}" type="button"
 									class="btn btn-danger k"> <span
 									class="glyphicon glyphicon-circle-arrow-left"></span> Volver
 								</a>

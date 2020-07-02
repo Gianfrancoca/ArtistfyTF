@@ -177,7 +177,9 @@
 						</thead>
 						<tbody>
 							<tr th:each="art: ${listOrganizers}">
-								<td th:text="${art.idOrganizer}"></td>
+							<td><a class="btn btn-danger btn-xs"
+									th:href="@{/organizers/viewOr/} + ${art.idOrganizer}"
+									th:text="${art.idOrganizer}"></a></td>
 								<td th:text="${art.firstName}"></td>
 								<td th:text="${art.lastName}"></td>
 								<td th:text="${art.dni}"></td>

@@ -93,4 +93,20 @@ public class ContractController {
 			return "contract/contract";
 		}
 	}
+	
+	@GetMapping(value = "/viewCon/{id}")
+	public String ver(@PathVariable(value = "id") Integer id, Model model, RedirectAttributes flash) {
+
+		Optional<Contract> contract = cS.searchId(id);
+		if (contract == null) {
+			flash.addFlashAttribute("error", "El contrato no existe en la base de datos");
+			return "redirect:/contracts/list";
+		}
+
+		model.addAttribute("contract", contract.get());
+
+		return "contract/viewCon";
+	}
+	
+	
 }

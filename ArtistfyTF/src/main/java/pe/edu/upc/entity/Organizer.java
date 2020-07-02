@@ -55,6 +55,7 @@ public class Organizer implements Serializable{
 	@Column(name = "phone", nullable = false)
 	private int phone;
 
+	private String foto;
 
 	public Organizer() {
 		super();
@@ -62,7 +63,7 @@ public class Organizer implements Serializable{
 	}
 
 
-	public Organizer(int idOrganizer, String firstName, String lastName, int dni, String email,int phone) {
+	public Organizer(int idOrganizer, String firstName, String lastName, int dni, String email,int phone, String foto) {
 		super();
 		this.idOrganizer = idOrganizer;
 		this.firstName = firstName;
@@ -70,6 +71,7 @@ public class Organizer implements Serializable{
 		this.dni = dni;
 		this.email = email;
 		this.phone = phone;
+		this.foto=foto;
 	}
 
 
@@ -132,6 +134,14 @@ public class Organizer implements Serializable{
 		this.phone = phone;
 	}
 	
-	
+	public String getFoto() {
+		return foto;
+	}
+
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
 	
 }

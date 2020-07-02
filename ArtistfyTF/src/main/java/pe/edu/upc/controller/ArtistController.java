@@ -30,7 +30,7 @@ import pe.edu.upc.serviceinterface.IUploadService;
 @Controller
 @RequestMapping("/artists")
 //@Secured("ROLE_ADMIN")
-@Secured({"ROLE_ADMIN", "ROLE_ARTIST"})
+@Secured({"ROLE_ADMIN", "ROLE_ARTIST","ROLE_ORGANIZER"})
 public class ArtistController {
 
 	@Autowired
@@ -179,7 +179,7 @@ public class ArtistController {
 				.body(recurso);
 	}
 	
-	@Secured({"ROLE_ADMIN", "ROLE_ARTIST"})
+	@Secured({"ROLE_ADMIN", "ROLE_ARTIST","ROLE_ORGANIZER"})
 	@GetMapping(value = "/view/{id}")
 	public String ver(@PathVariable(value = "id") Integer id, Model model, RedirectAttributes flash) {
 
