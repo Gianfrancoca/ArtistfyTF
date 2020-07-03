@@ -1,16 +1,16 @@
-paquete  pe.edu.upc.controller ;
+package  pe.edu.upc.controller;
 import  java.io.IOException ;
 import  java.net.MalformedURLException ;
 import  java.util.Optional ;
-importar  org.springframework.beans.factory.annotation.Autowired ;
-importar  org.springframework.core.io.Resource ;
-importar  org.springframework.http.HttpHeaders ;
+import  org.springframework.beans.factory.annotation.Autowired ;
+import  org.springframework.core.io.Resource ;
+import  org.springframework.http.HttpHeaders ;
 import  org.springframework.http.ResponseEntity ;
-importar  org.springframework.security.access.annotation.Secured ;
+import  org.springframework.security.access.annotation.Secured ;
 import  org.springframework.stereotype.Controller ;
 import  org.springframework.ui.Model ;
 import  org.springframework.validation.BindingResult ;
-importar  org.springframework.validation.annotation.Validated ;
+import  org.springframework.validation.annotation.Validated ;
 import  org.springframework.web.bind.annotation.GetMapping ;
 import  org.springframework.web.bind.annotation.PathVariable ;
 import  org.springframework.web.bind.annotation.PostMapping ;
@@ -18,12 +18,13 @@ import  org.springframework.web.bind.annotation.RequestMapping ;
 import  org.springframework.web.bind.annotation.RequestParam ;
 import  org.springframework.web.bind.support.SessionStatus ;
 import  org.springframework.web.multipart.MultipartFile ;
-importar  org.springframework.web.servlet.mvc.support.RedirectAttributes ;
+import  org.springframework.web.servlet.mvc.support.RedirectAttributes ;
 import  pe.edu.upc.entity.Artist ;
 import  pe.edu.upc.serviceinterface.IArtistService ;
-importar  pe.edu.upc.serviceinterface.IGenreService ;
-importar  pe.edu.upc.serviceinterface.IUploadService ;
-@Controlador
+import  pe.edu.upc.serviceinterface.IGenreService ;
+import pe.edu.upc.serviceinterface.IUploadService ;
+
+@Controller
 @RequestMapping ( " / artistas " )
 @Secured ( " ROLE_ADMIN " )
 público  de clase  ArtistController {
