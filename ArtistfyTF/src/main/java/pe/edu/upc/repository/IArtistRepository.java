@@ -10,6 +10,6 @@ import pe.edu.upc.entity.Artist;
 @Repository
 public interface IArtistRepository extends JpaRepository<Artist, Integer>{
 
-	@Query("select count(a.dni) from Artist a where a.dni=:dni")
-	public int searchDni(@Param("dni") int documento);
+	@Query("select count(a.dni) from Artist a   where a.dni=:dni")
+	public int searchDni(@Param("dni") int documento);   
 }
