@@ -61,18 +61,6 @@ public class ContractController {
 		}
 	}
 	
-	@GetMapping("/list")
-	public String listContracts (Model model) {
-		try {
-			model.addAttribute("contract", new Contract());
-			model.addAttribute("listContracts", cS.listContract());
-			model.addAttribute("listArtists", aS.listArtist());
-		} catch (Exception e) {
-			// TODO: handle exception
-			model.addAttribute("error", e.getMessage());
-		}
-		return "contract/listContracts";
-	}
 
 
 @RequestMapping("/delete/{id}")
@@ -127,3 +115,17 @@ public class ContractController {
 		return "reports/contractReport";
 		
 	}
+	
+	@GetMapping("/list")
+	public String listContracts (Model model) {
+		try {
+			model.addAttribute("contract", new Contract());
+			model.addAttribute("listContracts", cS.listContract());
+			model.addAttribute("listArtists", aS.listArtist());
+		} catch (Exception e) {
+			// TODO: handle exception
+			model.addAttribute("error", e.getMessage());
+		}
+		return "contract/listContracts";
+	}
+
