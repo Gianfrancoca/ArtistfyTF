@@ -12,5 +12,6 @@ public interface IEventService {
 	public void delete (int idEvent);
 	List<Event> findNameEventFull(String name);
 	Optional<Event> searchId(int idEvent);
+	public List<String[]> eventOrganizer();
 	
 }

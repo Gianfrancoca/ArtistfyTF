@@ -1,5 +1,6 @@
 package pe.edu.upc.controller;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +20,15 @@ import pe.edu.upc.serviceinterface.IOrganizerService;
 
 @Controller
 @RequestMapping("/events")
-@Secured("ROLE_ADMIN")
+@Secured({"ROLE_ADMIN", "ROLE_ARTIST","ROLE_ORGANIZER"})
 public class EventController {
 
 	@Autowired
 	private IEventService eS;
 	@Autowired
 	private IOrganizerService oS;
-
+	
+	@Secured({"ROLE_ADMIN","ROLE_ORGANIZER"})
 	@GetMapping("/new")
 	public String newEvent(Model model) {
 		model.addAttribute("event", new Event());
@@ -35,6 +37,7 @@ public class EventController {
 		return "event/event";
 	}
 
+	@Secured({"ROLE_ADMIN","ROLE_ORGANIZER"})
 	@PostMapping("/save")
 	public String saveEvent(@Validated Event event, BindingResult result, Model model) throws Exception {
 		if (result.hasErrors()) {
@@ -63,7 +66,7 @@ public class EventController {
 		}
 		return "event/listEvents";
 	}
-
+	@Secured({"ROLE_ADMIN","ROLE_ORGANIZER"})
 	@RequestMapping("/delete/{id}")
 	public String deleteContract(Model model, @PathVariable(value = "id") int id) {
 		try {
@@ -80,7 +83,7 @@ public class EventController {
 		model.addAttribute("listEvents", eS.listEvent());
 		return "event/listEvents";
 	}
-
+	@Secured({"ROLE_ADMIN","ROLE_ORGANIZER"})
 	@RequestMapping("/irupdate/{id}")
 	public String irupdate(Model model, @PathVariable int id, RedirectAttributes objRedir) {
 
@@ -118,6 +121,13 @@ public class EventController {
 		model.addAttribute("event", event.get());
 
 		return "event/viewEv";
+	}
+	
+	@Secured({"ROLE_ADMIN","ROLE_ARTIST"})
+	@RequestMapping("/reporte2")
+	public String eventOrganizer(Map<String,Object>model) {
+		model.put("listEventOrganizer", eS.eventOrganizer());
+		return "reports/eventOrganizer";
 	}
 	
 

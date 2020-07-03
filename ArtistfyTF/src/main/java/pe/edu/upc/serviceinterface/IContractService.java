@@ -11,4 +11,6 @@ public interface IContractService {
 	List<Contract> listContract();
 	public void delete(int idContract);
 	Optional<Contract> searchId(int idContract);
+	
+	public List<String[]> contractReport();
 }

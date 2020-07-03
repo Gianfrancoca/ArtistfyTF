@@ -28,8 +28,7 @@ import pe.edu.upc.serviceinterface.IUploadService;
 
 @Controller
 @RequestMapping("/organizers")
-//@Secured({"ROLE_ADMIN", "ROLE_ORGANIZER"})
-@Secured("ROLE_ADMIN")
+@Secured({"ROLE_ADMIN", "ROLE_ORGANIZER"})
 public class OrganizerController {
 
 	@Autowired

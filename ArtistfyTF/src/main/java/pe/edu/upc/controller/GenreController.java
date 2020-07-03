@@ -15,7 +15,7 @@ import pe.edu.upc.serviceinterface.IGenreService;
 
 @Controller
 @RequestMapping("/genres")
-@Secured("ROLE_ADMIN")
+@Secured({"ROLE_ADMIN","ROLE_ARTIST"})
 public class GenreController {
 	
 	@Autowired

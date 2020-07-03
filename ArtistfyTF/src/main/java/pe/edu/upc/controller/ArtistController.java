@@ -42,6 +42,7 @@ public class ArtistController {
 	@Autowired
 	private IUploadService uploadFileService;
 	
+	@Secured({"ROLE_ADMIN", "ROLE_ARTIST"})
 	@GetMapping("/new")
 	public String newArtist(Model model) {
 		model.addAttribute("artist", new Artist());
@@ -49,6 +50,7 @@ public class ArtistController {
 		return "artist/artist";
 	}
 	
+	@Secured({"ROLE_ADMIN", "ROLE_ARTIST"})
 	@PostMapping("/save")
 	public String saveArtist(@Validated Artist artist, BindingResult result, Model model,
 			@RequestParam("file") MultipartFile foto, RedirectAttributes flash, SessionStatus status) throws Exception {
@@ -88,6 +90,7 @@ public class ArtistController {
 		}
 	}
 	
+	@Secured({"ROLE_ADMIN", "ROLE_ARTIST"})
 	@PostMapping("/update")
 	public String updateArtist(@Validated Artist artist, BindingResult result, Model model,
 			@RequestParam("file") MultipartFile foto, RedirectAttributes flash, SessionStatus status) throws Exception {

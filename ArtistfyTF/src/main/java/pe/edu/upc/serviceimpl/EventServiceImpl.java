@@ -49,5 +49,11 @@ public class EventServiceImpl implements Serializable, IEventService{
 		return eR.search(name);
 	}
 
+	@Override
+	public List<String[]> eventOrganizer() {
+		// TODO Auto-generated method stub
+		return eR.eventOrganizer();
+	}
+
 
 }

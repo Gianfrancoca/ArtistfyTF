@@ -43,4 +43,10 @@ public class ContractServiceImpl implements Serializable, IContractService{
 		return cR.findById(idContract);
 	}
 
+	@Override
+	public List<String[]> contractReport() {
+		// TODO Auto-generated method stub
+		return cR.contractReport();
+	}
+
 }

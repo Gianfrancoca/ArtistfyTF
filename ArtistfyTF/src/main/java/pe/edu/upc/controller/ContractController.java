@@ -1,5 +1,6 @@
 package pe.edu.upc.controller;
 
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ import pe.edu.upc.serviceinterface.IContractService;
 
 @Controller
 @RequestMapping("/contracts")
-@Secured("ROLE_ADMIN")
+@Secured({"ROLE_ADMIN", "ROLE_ARTIST","ROLE_ORGANIZER"})
 public class ContractController {
 	
 	@Autowired
@@ -27,7 +28,13 @@ public class ContractController {
 
 	@Autowired
 	private IArtistService aS;
+	@RequestMapping("/reports")
+	public String Report()
+	{
+		return "reports/reports";
+	}
 	
+	@Secured({"ROLE_ADMIN", "ROLE_ORGANIZER"})
 	@GetMapping("/new")
 	public String newContract(Model model) {
 		model.addAttribute("contract", new Contract());
@@ -36,6 +43,7 @@ public class ContractController {
 		return "contract/contract";
 	}
 	
+	@Secured({"ROLE_ADMIN", "ROLE_ORGANIZER"})
 	@PostMapping("/save")
 	public String saveContract(@Validated Contract contract, BindingResult result, Model model) throws Exception{
 		if(result.hasErrors()) {
@@ -80,6 +88,7 @@ public class ContractController {
 		return "contract/listContracts";
 	}
 	
+	@Secured({"ROLE_ADMIN", "ROLE_ORGANIZER"})
 	@RequestMapping("/irupdate/{id}")
 	public String irupdate(Model model, @PathVariable int id, RedirectAttributes objRedir) {
 		
@@ -93,7 +102,7 @@ public class ContractController {
 			return "contract/contract";
 		}
 	}
-	
+	@Secured({"ROLE_ADMIN","ROLE_ARTIST", "ROLE_ORGANIZER"})
 	@GetMapping(value = "/viewCon/{id}")
 	public String ver(@PathVariable(value = "id") Integer id, Model model, RedirectAttributes flash) {
 
@@ -107,6 +116,15 @@ public class ContractController {
 
 		return "contract/viewCon";
 	}
+	
+	@Secured({"ROLE_ADMIN","ROLE_ORGANIZER"})
+	@RequestMapping("/reporte1")
+	public String contractReport(Map<String,Object>model) {
+		model.put("listContractsReport",cS.contractReport());
+		return "reports/contractReport";
+		
+	}
+	
 	
 	
 }
